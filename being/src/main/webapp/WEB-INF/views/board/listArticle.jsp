@@ -52,16 +52,22 @@
 		<td colspan="4">게시글이 없습니다.</td>
 	</tr>
 </c:if>
-<c:forEach var="article" items="${articlePage.content}">
+<c:forEach var="boardVO" items="${list}">
 <div>
 	<ul><li>
-	<a href="read.do?no=${article.number}&pageNo=${articlePage.currentPage}">
+	<a href='/borad/read.do?no=${boardVO.num}'>
 	<img src="${pageContext.request.contextPath}/resources/img/story2.png" width="300px" height="300px" alt="" />
-	<c:out value="${article.title}"/>
+	<c:out value="${boardVO.title}"/>
 		
-		<span><p>${article.writer.name} </p>
+		<span><p>${writerVO.name} </p>
 		
-		<p> 조회수: ${article.readCount}</p></span>
+		<p> 조회수: ${boardVO.type}</p>
+		<p> 조회수: ${boardVO.acreage}</p>
+		<p> 조회수: ${boardVO.budget}</p>
+		<p> 조회수: ${boardVO.field}</p>
+		<p> 조회수: ${boardVO.space}</p>
+		<p> 조회수: ${boardVO.contentof}</p>
+		</span>
 		</a>
 		</li></ul></div>
 	
@@ -73,26 +79,6 @@
 </p>
 </u:isGeneral>
 
-<table class="listbtn">
-<c:if test="${articlePage.hasArticles()}">
-	<tr>	
-		<td colspan="4">
-			<c:if test="${articlePage.startPage > 5}">
-			<a href="list.do?pageNo=${articlePage.startPage - 5}">[이전]</a>
-			
-			</c:if>
-			<c:forEach var="pNo" 
-					   begin="${articlePage.startPage}" 
-					   end="${articlePage.endPage}">
-			<a href="list.do?pageNo=${pNo}">[${pNo}]</a>
-			</c:forEach>
-			<c:if test="${articlePage.endPage < articlePage.totalPages}">
-			<a href="list.do?pageNo=${articlePage.startPage + 5}">[다음]</a>
-			</c:if>
-		</td>
-	</tr>
-</c:if>
-</table>
 </div>
 
 	

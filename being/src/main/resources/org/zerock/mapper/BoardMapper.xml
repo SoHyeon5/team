@@ -8,7 +8,13 @@
 		있습니다. -->
 	<select id="selectBoardList" resultType="org.zerock.domain.BoardVO">
 		SELECT NUM
+		, EMAIL
 		, NAME
+		, TYPE
+		, ACREAGE
+		, BUDGET
+		, FIELD
+		, SPACE
 		, TITLE
 		, CONTENTOF
 		, REGISTDAY
@@ -18,13 +24,18 @@
 	
 	<select id="selectBoardList2" resultType="org.zerock.domain.BoardVO">
 		SELECT NUM
+		, EMAIL
 		, NAME
+		, TYPE
+		, ACREAGE
+		, BUDGET
+		, FIELD
+		, SPACE
 		, TITLE
-		, CONTENT
-		, READCOUNT
-		, WRITEDATE
-		FROM BOARD
-		WHERE NUM=2
+		, CONTENTOF
+		, REGISTDAY
+		FROM WRITING
+        WHERE NUM=2
 		ORDER BY NUM DESC
 	</select>
 </mapper>

@@ -16,7 +16,7 @@ import org.zerock.service.BoardService;
  * Handles requests for the application home page.
  */
 @Controller
-@RequestMapping(value = "/board")
+@RequestMapping("/board/*")
 public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
@@ -25,7 +25,7 @@ public class BoardController {
 	private BoardService boardService;
 
 	@RequestMapping(value = "/list")
-	public void boardList(Model model) throws Exception {
+	public String boardList(Model model) throws Exception {
 		logger.info("// /board/list");
 
 		List<BoardVO> list = boardService.selectBoardList();
@@ -33,6 +33,10 @@ public class BoardController {
 		logger.info("// list.toString()=" + list.toString());
 
 		model.addAttribute("list", list);
+		
+		return "/board/listArticle";
+		
 	}
-
+	
+	
 }
