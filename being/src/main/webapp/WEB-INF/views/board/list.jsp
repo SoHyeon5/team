@@ -15,7 +15,6 @@
 		<th>번호</th>
 		<th>이름</th>
 		<th>제목</th>
-		<th>조회</th>
 		<th>작성일</th>
 	</tr>
 	</thead>
@@ -25,8 +24,7 @@
 			<td>${item.num}</td>
 			<td>${item.name}</td>
 			<td>${item.title}</td>
-			<td>${item.readCount}</td>
-			<td>${item.writeDate}</td>
+			<td>${item.registDay}</td>
 		</tr>
 		</c:forEach>
 	</tbody>
