@@ -41,6 +41,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/dev/eclipse/lombok.jar"/>
+	<classpathentry kind="lib" path="C:/Users/dksth_jkiwmyz/eclipse/jee-2020-09/eclipse/lombok.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
