@@ -17,14 +17,14 @@
 		<div class="container main-menu">
 			<div class="row align-items-center justify-content-between d-flex">
 				<div id="logo">
-					<a href="${pageContext.request.contextPath}/main/index.do"><img src="${pageContext.request.contextPath}/resources/img/logo3.jpg" alt="" title="" width="75px" height="75px"/></a>
+					<a href="${pageContext.request.contextPath}"><img src="${pageContext.request.contextPath}/resources/img/logo3.jpg" alt="" title="" width="75px" height="75px"/></a>
 				</div>
 				<nav id="nav-menu-container">
 					<ul class="nav-menu">
-						<li class="menu-has-children"><a href="${pageContext.request.contextPath}/main/index.do">커뮤니티</a>
+						<li class="menu-has-children"><a href="${pageContext.request.contextPath}">커뮤니티</a>
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/main/index.do">홈</a></li>
-								<li><a href="${pageContext.request.contextPath}/board/list.do">스토리</a></li>
+								<li><a href="${pageContext.request.contextPath}">홈</a></li>
+								<li><a href="${pageContext.request.contextPath}/board/listArticle">스토리</a></li>
 								<li><a href="#">노하우</a></li>
 								<li><a href="#">이벤트</a></li>
 							</ul>
@@ -45,7 +45,7 @@
 						</li>
 						<u:isLogin>
 						<li class="user" style="padding-left: 200px;"><a>${login.name}님 </a></li>
-						<li class="hoverr"><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+						<li class="hoverr"><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 						</u:isLogin>
 						<u:isGeneral>
 						<li class="hoverr"><a href="${pageContext.request.contextPath}/main/profile.do">마이페이지</a></li>

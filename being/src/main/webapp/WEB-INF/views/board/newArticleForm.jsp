@@ -32,6 +32,8 @@
 <div class="box">
 <form action="${pageContext.request.contextPath}/board/newArticleForm" method="post">
 
+<input type="hidden" name="email" value="${login.email}">
+<input type="hidden" name="name" value="${login.name}">
 
 <div class="regist-box">
 <div id="story-form-select">               
