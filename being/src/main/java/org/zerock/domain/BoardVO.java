@@ -6,7 +6,10 @@ import org.springframework.stereotype.Component;
 
 public class BoardVO {
 	
-	private WriterVO writerVO;
+//	private WriterVO writerVO;
+	
+	private String name;
+	private String email;
 	private Integer num;
 	private String type;
 	private String acreage;
@@ -18,10 +21,10 @@ public class BoardVO {
 	private Date registday;
 	private Integer readcount;
 	
-	public BoardVO() {
-		super();
-		this.writerVO = new WriterVO();
-	}
+//	public BoardVO() {
+//		super();
+//		this.writerVO = new WriterVO();
+//	}
 	
 	public Integer getNum() {
 		return num;
@@ -30,10 +33,10 @@ public class BoardVO {
 		this.num = num;
 	}
 	public String getName() {
-		return writerVO.getName();
+		return name;
 	}
 	public void setName(String name) {
-		this.writerVO.setName(name);
+		this.name = name;
 	}
 	public String getTitle() {
 		return title;
@@ -48,10 +51,10 @@ public class BoardVO {
 		this.contentof = contentof;
 	}
 	public String getEmail() {
-		return this.writerVO.getId();
+		return email;
 	}
 	public void setEmail(String email) {
-		this.writerVO.setId(email);
+		this.email = email;
 	}
 	public String getType() {
 		return type;
@@ -103,13 +106,14 @@ public class BoardVO {
 	public void setReadcount(Integer readcount) {
 		this.readcount = readcount;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "BoardVO [writerVO=" + writerVO + ", num=" + num + ", type=" + type + ", acreage=" + acreage
+		return "BoardVO [name=" + name + ", email=" + email + ", num=" + num + ", type=" + type + ", acreage=" + acreage
 				+ ", budget=" + budget + ", field=" + field + ", space=" + space + ", title=" + title + ", contentof="
 				+ contentof + ", registday=" + registday + ", readcount=" + readcount + "]";
 	}
+	
 
 	
 

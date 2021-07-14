@@ -55,7 +55,7 @@
 						</u:isAdmin>
 						
 						<u:notLogin>
-						<li class="menu-active"><a href="${pageContext.request.contextPath}/login.do" style="padding-left: 400px;" class="hoverr">로그인</a></li>
+						<li class="menu-active"><a href="${pageContext.request.contextPath}/user/loginForm" style="padding-left: 400px;" class="hoverr">로그인</a></li>
 						<li class="menu-active"><a href="${pageContext.request.contextPath}/join.do" class="hoverr">회원가입</a></li>
 						</u:notLogin>
 					</ul>

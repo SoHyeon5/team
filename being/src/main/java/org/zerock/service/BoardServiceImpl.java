@@ -12,6 +12,12 @@ import org.zerock.mapper.BoardMapper;
 public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardMapper boardMapper;
+	
+	@Override
+	@Transactional
+	  public void create(BoardVO board) throws Exception {
+	    boardMapper.create(board);
+	  }
 
 	@Override
 	@Transactional

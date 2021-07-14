@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.service.BoardService;
 
@@ -23,16 +25,49 @@ public class BoardController {
 
 	@Inject
 	private BoardService boardService;
+	
+	 @RequestMapping(value = "/newArticleForm", method = RequestMethod.GET)
+	  public void registerGET(BoardVO board, Model model) throws Exception {
 
-	@RequestMapping(value = "/list")
+	    logger.info("newArticleForm get ...........");
+	  }
+
+	  // @RequestMapping(value = "/register", method = RequestMethod.POST)
+	  // public String registPOST(BoardVO board, Model model) throws Exception {
+	  //
+	  // logger.info("regist post ...........");
+	  // logger.info(board.toString());
+	  //
+	  // service.regist(board);
+	  //
+	  // model.addAttribute("result", "success");
+	  //
+	  // //return "/board/success";
+	  // return "redirect:/board/listAll";
+	  // }
+
+	  @RequestMapping(value = "/newArticleForm", method = RequestMethod.POST)
+	  public String registPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+
+	    logger.info("newArticleForm post ...........");
+	    logger.info(board.toString());
+
+	    boardService.create(board);
+
+	    rttr.addFlashAttribute("msg", "SUCCESS");
+	    
+	    return "redirect:/board/newArticleForm";
+	  }
+
+	@RequestMapping(value = "/listArticle")
 	public String boardList(Model model) throws Exception {
-		logger.info("// /board/list");
+		logger.info("// /board/listArticle");
 
-		List<BoardVO> list = boardService.selectBoardList();
+		List<BoardVO> listArticle = boardService.selectBoardList();
 
-		logger.info("// list.toString()=" + list.toString());
+		logger.info("// listArticle.toString()=" + listArticle.toString());
 
-		model.addAttribute("list", list);
+		model.addAttribute("listArticle", listArticle);
 		
 		return "/board/listArticle";
 		

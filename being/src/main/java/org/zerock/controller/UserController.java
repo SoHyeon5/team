@@ -29,7 +29,7 @@ public class UserController {
 //	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 	
 	@Inject
-	private UserService userService;
+	private UserService service;
 
 	
 //	@RequestMapping(value = "/loginForm")
@@ -53,7 +53,7 @@ public class UserController {
 	@RequestMapping(value = "/loginPost", method = RequestMethod.POST)
 	public void loginPOST(LoginDTO dto, HttpSession session, Model model) throws Exception {
 //		System.out.println("/user/loginPost 실행 ....");
-		UserVO vo = userService.login(dto);
+		UserVO vo = service.login(dto);
 		if (vo == null) {
 			return;
 		}
@@ -61,7 +61,7 @@ public class UserController {
 		if (dto.isUseCookie()) {
 			int amount = 60 * 60 * 24 * 7;
 			Date sessionLimit = new Date(System.currentTimeMillis() + (1000 * amount));
-			userService.keepLogin(vo.getEmail(), session.getId(), sessionLimit);
+			service.keepLogin(vo.getEmail(), session.getId(), sessionLimit);
 		}
 	}
 
@@ -77,7 +77,7 @@ public class UserController {
 				loginCookie.setPath("/");
 				loginCookie.setMaxAge(0);
 				response.addCookie(loginCookie);
-				userService.keepLogin(vo.getEmail(), session.getId(), new Date());
+				service.keepLogin(vo.getEmail(), session.getId(), new Date());
 			}
 		}
 	}
