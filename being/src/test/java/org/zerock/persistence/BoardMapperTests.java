@@ -24,5 +24,5 @@ public class BoardMapperTests {
 		log.info("/* "+boardMapper.getClass().getName());
 		log.info("/* boardMapper.selectBoardList()="+boardMapper.selectBoardList());
 	}
-
+	
 }

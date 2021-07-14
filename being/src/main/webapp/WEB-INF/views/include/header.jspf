@@ -44,7 +44,7 @@
 							</ul>
 						</li>
 						<u:isLogin>
-						<li class="user" style="padding-left: 200px;"><a>${authUser.name}님 </a></li>
+						<li class="user" style="padding-left: 200px;"><a>${login.name}님 </a></li>
 						<li class="hoverr"><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
 						</u:isLogin>
 						<u:isGeneral>

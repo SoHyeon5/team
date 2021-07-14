@@ -114,7 +114,7 @@
 </div>
 <div class=content>
 <p>내용
-	<input type="text" name="content" ${param.content} placeholder="내용을 입력하세요">
+	<input type="text" name="contentOf" ${param.contentOf} placeholder="내용을 입력하세요">
 </p>
 </div>
 </div>

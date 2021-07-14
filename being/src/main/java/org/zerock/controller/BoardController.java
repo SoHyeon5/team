@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.service.BoardService;
@@ -56,7 +57,9 @@ public class BoardController {
 
 	    rttr.addFlashAttribute("msg", "SUCCESS");
 	    
-	    return "redirect:/board/newArticleForm";
+	    logger.info(board.toString());
+	    
+	    return "redirect:/board/listArticle";
 	  }
 
 	@RequestMapping(value = "/listArticle")
@@ -73,5 +76,10 @@ public class BoardController {
 		
 	}
 	
+	 @RequestMapping(value = "/readArticle", method = RequestMethod.GET)
+	  public void read(@RequestParam("num") int num, Model model) throws Exception {
+
+	    model.addAttribute(boardService.read(num));
+	  }
 	
 }

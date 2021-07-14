@@ -24,5 +24,10 @@ public class BoardServiceImpl implements BoardService {
 	public List<BoardVO> selectBoardList() throws Exception {
 		return boardMapper.selectBoardList();
 	}
-
+	
+	@Override
+	@Transactional
+	public BoardVO read(Integer num) throws Exception {
+	    return boardMapper.read(num);
+	  }
 }
