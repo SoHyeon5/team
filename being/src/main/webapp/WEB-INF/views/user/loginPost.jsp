@@ -9,7 +9,7 @@
 </head>
 <body>
 	<script type="text/javascript">
-		self.location = "/board/list";
+		self.location = "/being";
 	</script>
 </body>
 </html>
