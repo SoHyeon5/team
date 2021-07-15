@@ -133,17 +133,18 @@
 			<div class="list">
 				<td colspan="2"><c:set var="pageNo"
 						value="${empty param.pageNo ? '1' : param.pageNo}" />
-						<a class="btn" href="/board/listAticle?pageNo=${pageNo}">목록</a>
+						<a class="btn" href="${pageContext.request.contextPath}/board/listArticle?page=${param.page}">목록</a>
 						<u:isAdmin>
-						<a class="btn" href="delete.do?no=${boardVO.num}">게시글 삭제</a>
+						<a class="btn" href="${pageContext.request.contextPath}/board/remove?num=${boardVO.num}">게시글 삭제</a>
 						</u:isAdmin>
-						<c:if test="${authUser.id ==boardVO.email}">
-						<a class="btn" href="modify.do?no=${boardVO.num}">게시글 수정</a>
-						<a class="btn" href="delete.do?no=${boardVO.num}">게시글 삭제</a>
+						<c:if test="${login.email ==boardVO.email}">
+						<a class="btn" href="${pageContext.request.contextPath}/board/modifyForm?num=${boardVO.num}">게시글 수정</a>
+						<a class="btn" href="${pageContext.request.contextPath}/board/remove?num=${boardVO.num}">게시글 삭제</a>
 					</c:if></td>
 			</div>
-
-
+		
+			
+			
 		</div>
 	
 

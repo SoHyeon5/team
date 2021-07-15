@@ -8,11 +8,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageMaker;
+import org.zerock.domain.SearchCriteria;
 import org.zerock.service.BoardService;
 
 /**
@@ -62,24 +66,74 @@ public class BoardController {
 	    return "redirect:/board/listArticle";
 	  }
 
-	@RequestMapping(value = "/listArticle")
-	public String boardList(Model model) throws Exception {
-		logger.info("// /board/listArticle");
+//	@RequestMapping(value = "/listArticle")
+//	public String boardList(Model model) throws Exception {
+//		logger.info("// /board/listArticle");
+//
+//		List<BoardVO> listArticle = boardService.selectBoardList();
+//
+//		logger.info("// listArticle.toString()=" + listArticle.toString());
+//
+//		model.addAttribute("listArticle", listArticle);
+//		
+//		return "/board/listArticle";
+//		
+//	}
+	  
+	  @RequestMapping(value = "/listArticle", method = RequestMethod.GET)
+	  public void listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
 
-		List<BoardVO> listArticle = boardService.selectBoardList();
+	    logger.info(cri.toString());
 
-		logger.info("// listArticle.toString()=" + listArticle.toString());
+	     model.addAttribute("listArticle", boardService.listCriteria(cri));
+//	    model.addAttribute("listArticle", boardService.listPage(page));
 
-		model.addAttribute("listArticle", listArticle);
-		
-		return "/board/listArticle";
-		
-	}
-	
-	 @RequestMapping(value = "/readArticle", method = RequestMethod.GET)
-	  public void read(@RequestParam("num") int num, Model model) throws Exception {
+	    PageMaker pageMaker = new PageMaker();
+	    pageMaker.setCri(cri);
 
-	    model.addAttribute(boardService.read(num));
+	     pageMaker.setTotalCount(boardService.listCountCriteria(cri));
+//	    pageMaker.setTotalCount(boardService.listSearchCount(cri));
+
+	    model.addAttribute("pageMaker", pageMaker);
 	  }
+	
+//	 @RequestMapping(value = "/readArticle", method = RequestMethod.GET)
+//	  public void read(@RequestParam("num") int num, Model model) throws Exception {
+//
+//	    model.addAttribute(boardService.read(num));
+//	  }
+	 
+	  @RequestMapping(value = "/readArticle", method = RequestMethod.GET)
+	     public void read(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+
+	       model.addAttribute(boardService.read(num));
+	     }
+	   
+	     @RequestMapping(value = "/remove", method = {RequestMethod.POST ,RequestMethod.GET})
+	     public String remove(@RequestParam("num") int num, RedirectAttributes rttr) throws Exception {
+
+	        boardService.remove(num);
+
+	       rttr.addFlashAttribute("msg", "SUCCESS");
+
+	       return "redirect:/board/listArticle";
+	     }
+
+	     @RequestMapping(value = "/modifyForm", method = RequestMethod.GET)
+	     public void modifyGET(int num, Model model) throws Exception {
+
+	       model.addAttribute(boardService.read(num));
+	     }
+
+	     @RequestMapping(value = "/modifyForm", method = RequestMethod.POST)
+	     public String modifyPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+
+	       logger.info("mod post............");
+
+	       boardService.modify(board);
+	       rttr.addFlashAttribute("msg", "SUCCESS");
+
+	       return "redirect:/board/listArticle";
+	     } 
 	
 }

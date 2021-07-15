@@ -13,21 +13,37 @@
 
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
 		있습니다. -->
-	 <select id="read" resultType="org.zerock.domain.BoardVO">
- 		SELECT NUM
-		, EMAIL
-		, NAME
-		, TYPE
-		, ACREAGE
-		, BUDGET
-		, FIELD
-		, SPACE
-		, TITLE
-		, CONTENTOF
-		, REGISTDAY
-		FROM WRITING 
- 		WHERE NUM = #{num}
-	 </select>
+	  <select id="read" resultType="org.zerock.domain.BoardVO">
+       SELECT NUM
+      , EMAIL
+      , NAME
+      , TYPE
+      , ACREAGE
+      , BUDGET
+      , FIELD
+      , SPACE
+      , TITLE
+      , CONTENTOF
+      , REGISTDAY
+      FROM WRITING 
+       WHERE NUM = #{num}
+    </select>
+	 
+	  <update id="update">
+       UPDATE WRITING SET 
+       TYPE=#{type}
+       ,ACREAGE=#{acreage}
+       ,BUDGET=#{budget}
+       ,FIELD=#{field}
+       ,SPACE=#{space}
+       ,TITLE=#{title}
+       ,CONTENTOF=#{contentOf}
+       WHERE NUM = #{num}
+    </update>
+    
+     <delete id="delete">
+      delete from WRITING where NUM = #{num}
+      </delete>
 	 	
 	<select id="selectBoardList"
 		resultType="org.zerock.domain.BoardVO">
@@ -38,8 +54,7 @@
 		, ACREAGE
 		, BUDGET
 		, FIELD
-		,
-		SPACE
+		, SPACE
 		, TITLE
 		, CONTENTOF
 		, REGISTDAY
@@ -56,8 +71,7 @@
 		, ACREAGE
 		, BUDGET
 		, FIELD
-		,
-		SPACE
+		, SPACE
 		, TITLE
 		, CONTENTOF
 		, REGISTDAY
@@ -66,4 +80,65 @@
 		ORDER BY NUM
 		DESC
 	</select>
+	
+		<select id="listPage" 
+		resultType="org.zerock.domain.BoardVO">
+ <![CDATA[
+ SELECT RNUM, NUM
+		, EMAIL
+		, NAME
+		, TYPE
+		, ACREAGE
+		, BUDGET
+		, FIELD
+		, SPACE
+		, TITLE
+		, CONTENTOF
+		, REGISTDAY
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY NUM) RNUM, A.*
+		FROM WRITING A ORDER BY NUM
+		)
+		WHERE RNUM BETWEEN ((#{page}-1)*#{perPageNum}+1) AND (#{page}*#{perPageNum}) 
+		order by num desc, REGISTDAY desc
+ 		
+ ]]>
+	</select>
+
+	<select id="listCriteria"
+		resultType="org.zerock.domain.BoardVO">
+ <![CDATA[
+ select RNUM, NUM
+		, EMAIL
+		, NAME
+		, TYPE
+		, ACREAGE
+		, BUDGET
+		, FIELD
+		, SPACE
+		, TITLE
+		, CONTENTOF
+		, REGISTDAY
+		FROM (
+		SELECT ROW_NUMBER() OVER (ORDER BY NUM) RNUM, A.*
+		FROM WRITING A ORDER BY NUM
+		)
+		WHERE RNUM BETWEEN ((#{page}-1)*#{perPageNum}+1) AND (#{page}*#{perPageNum})  
+		order by num desc, REGISTDAY desc
+ ]]>
+<!--  		WHERE RNUM BETWEEN 1 AND 10 -->
+<!-- 		WHERE RNUM BETWEEN #{pageStart}+1 AND 10   -->
+	</select>
+	
+	<select id="countPaging" resultType="int">
+ <![CDATA[
+ select 
+   count(num) 
+ from 
+   writing 
+ where 
+   num > 0 
+ ]]>
+	</select>
+	
 </mapper>
