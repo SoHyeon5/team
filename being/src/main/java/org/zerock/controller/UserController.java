@@ -16,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.WebUtils;
 //import org.zerock.domain.BoardVO;
 import org.zerock.domain.UserVO;
@@ -26,7 +27,7 @@ import org.zerock.service.UserService;
 @RequestMapping("/user/*")
 public class UserController {
 
-//   private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
+   private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
    @Inject
    private UserService service;
@@ -84,4 +85,23 @@ public class UserController {
 
       return "user/logout";
    }
+   
+   @RequestMapping(value ="/joinForm", method = RequestMethod.GET)
+   public void joinForm(UserVO userVO, Model model) throws Exception{
+	   logger.info("joinForm get ...........");
+   }
+
+   @RequestMapping(value = "/joinPost", method = RequestMethod.POST)
+   public String joinPOST(UserVO userVO, RedirectAttributes rttr) throws Exception {
+      
+	   
+	   service.create(userVO);
+	   
+	   rttr.addFlashAttribute("msg", "SUCCESS");
+	   
+	   logger.info(userVO.toString());
+	   
+	   return "redirect:/user/loginForm";
+      }
+   
 }

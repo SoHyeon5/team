@@ -53,9 +53,7 @@
 	   </div>
 			
 			<form role="form" method="post">	
-
 						<input type='hidden' name='num' value="${boardVO.num}">
-
 			</form>
 			
 	<div class="everthing2">

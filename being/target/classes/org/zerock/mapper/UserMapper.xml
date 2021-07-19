@@ -14,4 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkUserWithSessionKey" resultType="org.zerock.domain.UserVO">
 		select * from members where sessionKey = #{value} and sessionLimit > now()
 	</select>
+	
+	
+	<insert id="create">
+		INSERT INTO MEMBERS
+		(EMAIL,NAME,PASSWORD,REGISTDAY,LVL)
+		values(#{email},#{name},#{password},SYSDATE,2)
+	</insert>	
+	
 </mapper>

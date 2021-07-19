@@ -10,4 +10,6 @@ public interface UserService {
 	void keepLogin(String email, String sessionId, Date next) throws Exception;
 
 	UserVO checkLoginBefore(String value);
+	
+	public void create(UserVO userVO) throws Exception;
 }

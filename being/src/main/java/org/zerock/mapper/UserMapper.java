@@ -12,4 +12,6 @@ public interface UserMapper {
 	void keepLogin(String email, String sessionId, Date next) throws Exception;
 
 	UserVO checkUserWithSessionKey(String value);
+	
+	public void create(UserVO userVO) throws Exception;
 }

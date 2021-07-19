@@ -32,4 +32,11 @@ public class UserServiceImpl implements UserService {
 	public UserVO checkLoginBefore(String value) {
 		return userMapper.checkUserWithSessionKey(value);
 	}
+	
+
+	@Override
+	@Transactional
+	  public void create(UserVO userVO) throws Exception {
+		userMapper.create(userVO);
+	  }
 }
