@@ -20,4 +20,6 @@ public interface StoreReviewMapper {
 	  public int count(Integer prodnum) throws Exception;
 
 	  public int getProdnum(Integer num) throws Exception;
+	  
+	  public void updateGrade(Integer prodnum) throws Exception;
 }

@@ -31,6 +31,7 @@ public class StoreReviewController {
     ResponseEntity<String> entity = null;
     try {
       service.addReview(vo);
+      service.updateGrade(vo.getProdnum());
       entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();
@@ -61,6 +62,7 @@ public class StoreReviewController {
     try {
       vo.setNum(num);
       service.modifyReview(vo);
+      service.updateGrade(vo.getProdnum());
 
       entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     } catch (Exception e) {
@@ -71,11 +73,12 @@ public class StoreReviewController {
   }
 
   @RequestMapping(value = "/{num}", method = RequestMethod.DELETE)
-  public ResponseEntity<String> remove(@PathVariable("num") Integer num) {
+  public ResponseEntity<String> remove(@PathVariable("num") Integer num, @PathVariable("prodnum") Integer prodnum) {
 
     ResponseEntity<String> entity = null;
     try {
       service.removeReview(num);
+      service.updateGrade(prodnum);
       entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
     } catch (Exception e) {
       e.printStackTrace();

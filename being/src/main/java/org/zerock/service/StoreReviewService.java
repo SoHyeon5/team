@@ -9,14 +9,16 @@ public interface StoreReviewService {
 
   public void addReview(StoreReviewVO vo) throws Exception;
 
-  public List<StoreReviewVO> listReview(Integer bno) throws Exception;
+  public List<StoreReviewVO> listReview(Integer prodnum) throws Exception;
 
   public void modifyReview(StoreReviewVO vo) throws Exception;
 
-  public void removeReview(Integer rno) throws Exception;
+  public void removeReview(Integer num) throws Exception;
 
-  public List<StoreReviewVO> listReviewPage(Integer bno, Criteria cri) 
+  public List<StoreReviewVO> listReviewPage(Integer prodnum, Criteria cri) 
       throws Exception;
 
   public int count(Integer bno) throws Exception;
+  
+  public void updateGrade(Integer prodnum) throws Exception;
 }

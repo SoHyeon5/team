@@ -2,14 +2,14 @@ package org.zerock.service;
 
 import java.util.List;
 
-import javax.inject.Inject;
+//import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.StoreReviewVO;
-import org.zerock.mapper.StoreMapper;
+//import org.zerock.mapper.StoreMapper;
 import org.zerock.mapper.StoreReviewMapper;
 
 @Service
@@ -30,7 +30,6 @@ public class StoreReviewServiceImpl implements StoreReviewService {
   @Transactional
   @Override
   public void addReview(StoreReviewVO vo) throws Exception {
-
 	  storeReviewMapper.create(vo);
   }
   
@@ -43,6 +42,11 @@ public class StoreReviewServiceImpl implements StoreReviewService {
 
 
   @Override
+public void updateGrade(Integer prodnum) throws Exception {
+	  storeReviewMapper.updateGrade(prodnum);
+}
+
+@Override
   public List<StoreReviewVO> listReview(Integer bno) throws Exception {
 
     return storeReviewMapper.list(bno);
