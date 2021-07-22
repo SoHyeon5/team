@@ -93,7 +93,7 @@
 
 
          <div class="login-box-etc">
-            <a href="#" class="pwd1">비밀번호 찾기</a><a href="join.do">회원 가입</a>
+            <a href="#" class="pwd1">비밀번호 찾기</a><a href="joinForm">회원 가입</a>
          </div>
 
       </div>

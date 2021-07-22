@@ -30,11 +30,13 @@
 		
 	</header>
 <%-- 	<u:isAdmin> --%>
+	<c:if test="${login.lvl eq 1}">
 	<div  class="store-check-btn">
 	<div>
 		<td colspan="4"><a href="newStoreForm">상품등록하기</a></td>
 		</div>
 		</div>
+		</c:if>
 <%-- 		</u:isAdmin> --%>
 		
 		<div class="main-title">
@@ -113,7 +115,7 @@
 	<div>
 	<ul>
 		<li>
-		<a class="name-a-font" href="readStore?prodnum=${storeVO.prodnum}&page=${param.page}">
+		<a class="name-a-font" href="readStore?prodnum=${storeVO.prodnum}">
 <!-- 	썸네일 -->
 		<span class="store=thumbnali"> 
 		<img src="${pageContext.request.contextPath}/resources/img/imga.png" width="320px" height="320px" alt="" />

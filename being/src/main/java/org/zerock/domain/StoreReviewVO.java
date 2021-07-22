@@ -8,8 +8,9 @@ public class StoreReviewVO {
   private Integer prodnum;
   private String contentof;
   private String email;
+  private String name;
   private Integer grade;
-
+  
   private Date registday;
 
   public Integer getNum() {
@@ -51,8 +52,16 @@ public String getEmail() {
   public void setEmail(String email) {
     this.email = email;
   }
+  
+   public String getName() {
+	return name;
+}
 
-  public Date getRegistday() {
+public void setName(String name) {
+	this.name = name;
+}
+
+public Date getRegistday() {
     return registday;
   }
 

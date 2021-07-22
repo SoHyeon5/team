@@ -59,7 +59,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 
 	<update id="update">
-		update prod_mng set name =#{name}, content =#{content}
+		update prod_mng set name =#{name}, thumbnail =#{thumbnail}, infoimage =#{infoimage}, introduce =#{introduce}, 
+		price =#{price}, dcprice =#{dcprice}, brand =#{brand}, keywd =#{keywd}, category =#{category}, freeyn =#{freeyn}, 
+		link =#{link}
 		where prodnum = #{prodnum}
 	</update>
 

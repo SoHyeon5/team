@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- Mobile Specific Meta -->
+	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/logo4.png">
@@ -19,7 +19,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>상품</title>
+	<title>Being</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 	<!--
@@ -36,155 +36,64 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/read.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 </head>
 
 <body>
- <%@ include file="../include/header.jspf" %>
+	 <%@ include file="../include/header.jspf" %>
+	
 
-<input type='hidden' name='prodnum' value="${storeVO.prodnum}">
-	<div class="store">
-	<div class="category2">
-   카테고리>
-   <u:pre value='${storeVO.category}'/>
-   </div>
-   
-   
-	<div class="flex-store">
-	<div class="thumnail">
- 
-   <a href="#"><img src="${pageContext.request.contextPath}/resources/img/imga.png" width="400px" height="400px" style="border-radius: 7px;"></a>
-	
-  <%--   상품사진<u:pre value='${storeData.store.thumbnail}'/> --%>
-   </div>
-   
-   <div class="right-store">
-   <div class="brand">
-   <!-- 브랜드 -->
-   <u:pre value='${storeVO.brand}'/>
-	</div>
-	
-	<div class="name">
-	<!-- 상품이름 -->
-	<u:pre value='${storeVO.name}'/>
-	</div>
-	
-	<div class="price">
-   <!-- 상품가격 -->
-   <u:pre value='${storeVO.price}'/>
-	</div>
-	
-	<div class="dcprice">
-   <!-- 할인가격 -->
-   <u:pre value='${storeVO.dcprice}'/>
-   </div>
-	
-	<div class="freeyn">
-	무료배송여부: 
-   <u:pre value='${storeVO.freeyn}'/>
-   </div>
-  
-	
-	<div class="avggrade">
-   평균평점:
-   <u:pre value='${storeVO.avggrade}'/>
-	</div>
-	</div>
-	</div>
-	
-	<div class="board-store">
-	</div>
-	
-	
-	<div class="down-store">
-	<div class="introduce">
-  <!--  상품소개 -->
-   <u:pre value='${storeVO.introduce}'/>
-   </div>
-   
-   <div class="infoimage">
-   <!-- 소개사진 -->
-   <img src="${pageContext.request.contextPath}/resources/img/imga.png" width="320px" height="320px" alt="" />
-   <u:pre value='${storeVO.infoimage}'/>
-   </div>
-	
-	<div class="link">
-   판매사이트링크
-   <u:pre value='${storeVO.link}'/>
-   </div>
-   </div>
-	
-	
-<div class="list">
-	 <td colspan="2">
-		<c:set var="pageNo" value="${empty param.pageNo ? '1' : param.pageNo}" />
-		<a class="btn" href="listStore?pageNo=${pageNo}">목록</a>
-		<u:isGeneral>
-		<a class="btn" href="${pageContext.request.contextPath}/storeReview/write.do?no=${storeVO.prodnum}">상품평 등록</a>
-		</u:isGeneral>
-<%-- 		<u:isAdmin> --%>
-		<c:if test="${login.lvl eq 1}">
-		<a class="btn" href="storeModifyForm?prodnum=${storeVO.prodnum}">상품 수정</a>
-		<a class="btn" href="removePage?prodnum=${storeVO.prodnum}">상품 삭제</a>
-		</c:if>
-<%-- 		</u:isAdmin> --%>
-	</td>
-	</div>
-</div>
 
-<div class="store-review-border">
-</div>
+<body>
 
-<div class="store-review-title">
-	<h2>리뷰</h2>
-		<div class="avggrade">
-  			 평균평점:
-  					 ${storeVO.avggrade}
-  		 </div>
-</div>
-
-<div class="store-review">
-
-<c:forEach var="storeData" items="${storeData.storeReview}">
-	<div class="store-review-area">
-		<div class="name-content">
-			<div class="name">		
-<!-- 	작성자 -->
-				<strong>${storeData.writer.name}</strong>
-			</div>
+<div class="faq-list">
+<%-- <c:if test="${interiorPage.hasNoInterior()}"> --%>
+<%-- </c:if> --%>
+	<c:forEach var="faqVO" items="${listFaq}">
+		<ul>
+			<li>
+<!-- 		질문 -->
+				<a href='${pageContext.request.contextPath}/faq/readFaq?num=${faqVO.num}&page=${param.page}'>
+				<div class="question"><c:out value="${faqVO.question}"/></div>
+				</a>
 		
-			<div class="content">	
-<!-- 			내용 -->
-				${storeData.content}
-			</div>
-		</div>	
-	
-	<div class="grade">	
-<!-- 		평점 -->
-		<strong>평점</strong> ${storeData.grade}
-	</div>	
-	
-	<div class="regDate">
-<!-- 		작성일 -->
-		${storeData.regDate}
-	</div>
-	
-	<div class="delete">
-<!-- 		상품평 수정 -->
-		<td><a href="${pageContext.request.contextPath}/storeReview/modify.do?no=${storeData.num}">수정</a></td>
-<!-- 		삭제 -->
-		<div class="delete1">
-<%-- 		<u:isAdmin> --%>
-		<c:if test="${login.lvl eq 1}">
-		<td>삭제</td>
-		</c:if>
-<%-- 		</u:isAdmin> --%>
-		</div>
-	</div>
-	
+		<!-- 	답변 -->
+				<div><span> ${faqVO.answer}</span></div>
+				<div><span> ${faqVO.category}</span></div>
+			</li>
+		</ul>	
+	</c:forEach>
+
+<table class="listbtn">
+<%-- <c:if test="${interiorPage.hasInterior()}"> --%>
+	<tr>	
+		<td colspan="4">
+			<c:if test="${pageMaker.prev}">
+								<li><a
+									href="listFaq${pageMaker.makeSearch(pageMaker.startPage - 1) }">[이전]</a></li>
+							</c:if>
+			<c:forEach begin="${pageMaker.startPage }"
+								end="${pageMaker.endPage }" var="idx">
+								<li
+									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
+									<a href="listFaq${pageMaker.makeSearch(idx)}">${idx}</a>
+								</li>
+							</c:forEach>
+			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
+								<li><a
+									href="listFaq${pageMaker.makeSearch(pageMaker.endPage +1) }">[다음]</a>
+			</c:if>
+		</td>
+	</tr>
+<%-- </c:if> --%>
+</table>
+
+<u:isAdmin>
+<div class="writebtn">
+<a class="btn" href="/faq/newFaqForm">faq등록</a>
 </div>
-</c:forEach>
-</div>
+</u:isAdmin>
+</div>	
 
 <%@ include file="../include/footer.jspf" %>
 
@@ -205,6 +114,12 @@
 	<script src="${pageContext.request.contextPath}/resources/js/jquery.lightbox.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/mail-script.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/main.js"></script>
+	
+<!-- 터치슬라이드 -->
+<script src='${pageContext.request.contextPath}/resources/js/swipe.js'></script>
+<script src='${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js'></script>
+	
+</body>
 
 </body>
 </html>

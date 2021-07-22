@@ -54,7 +54,7 @@ public class StoreController {
     model.addAttribute(storeService.read(prodnum));
   }
 
-  @RequestMapping(value = "/removePage", method = RequestMethod.POST)
+  @RequestMapping(value = "/removePage", method = {RequestMethod.POST, RequestMethod.GET})
   public String remove(@RequestParam("prodnum") int prodnum, RedirectAttributes rttr) throws Exception {
 
 	  storeService.remove(prodnum);
@@ -85,7 +85,7 @@ public class StoreController {
 
     logger.info(rttr.toString());
 
-    return "redirect:/store/listStore";
+    return "redirect:/store/readStore?prodnum="+store.getProdnum();
   }
 
   @RequestMapping(value = "/newStoreForm", method = RequestMethod.GET)
@@ -104,7 +104,7 @@ public class StoreController {
 
     rttr.addFlashAttribute("msg", "SUCCESS");
 
-    return "redirect:/store/listStore";
+    return "redirect:/store/readStore?prodnum="+store.getProdnum();
   }
   
   

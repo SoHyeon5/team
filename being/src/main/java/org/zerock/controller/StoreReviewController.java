@@ -13,32 +13,54 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageMaker;
 import org.zerock.domain.StoreReviewVO;
+import org.zerock.domain.StoreVO;
 import org.zerock.service.StoreReviewService;
 
 @RestController
-@RequestMapping("/reviews")
+@RequestMapping("/storeReview/*")
 public class StoreReviewController {
 
   @Inject
   private StoreReviewService service;
 
-  @RequestMapping(value = "", method = RequestMethod.POST)
-  public ResponseEntity<String> register(@RequestBody StoreReviewVO vo) {
+//  @RequestMapping(value = "/newStoreReviewForm", method = RequestMethod.POST)
+//  public ResponseEntity<String> register(@RequestBody StoreReviewVO vo) {
+//
+//    ResponseEntity<String> entity = null;
+//    try {
+//      service.addReview(vo);
+//      service.updateGrade(vo.getProdnum());
+//      entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//      entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+//    }
+//    return entity;
+//  }
+  
+  @RequestMapping(value = "/newStoreReviewForm", method = RequestMethod.GET)
+  public void registGET() throws Exception {
 
-    ResponseEntity<String> entity = null;
-    try {
-      service.addReview(vo);
-      service.updateGrade(vo.getProdnum());
-      entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
-    } catch (Exception e) {
-      e.printStackTrace();
-      entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
-    return entity;
+//    logger.info("regist get ...........");
   }
+
+  @RequestMapping(value = "/newStoreReviewForm", method = RequestMethod.POST)
+  public String registPOST(StoreReviewVO vo, RedirectAttributes rttr) throws Exception {
+
+//    logger.info("regist post ...........");
+//    logger.info(store.toString());
+
+    service.addReview(vo);
+
+    rttr.addFlashAttribute("msg", "SUCCESS");
+
+    return "redirect:/store/readStore?prodnum="+vo.getProdnum();
+  }
+  
 
   @RequestMapping(value = "/all/{prodnum}", method = RequestMethod.GET)
   public ResponseEntity<List<StoreReviewVO>> list(@PathVariable("prodnum") Integer prodnum) {

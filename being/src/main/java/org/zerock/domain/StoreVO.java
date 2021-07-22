@@ -6,7 +6,7 @@ public class StoreVO {
 	
 	private Integer prodnum;
 	private String name;
-	private String thumnail;
+	private String thumbnail;
 	private String infoimage;
 	private String introduce;
 	private int price;
@@ -41,11 +41,11 @@ public class StoreVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getThumnail() {
-		return thumnail;
+	public String getThumbnail() {
+		return thumbnail;
 	}
-	public void setThumnail(String thumnail) {
-		this.thumnail = thumnail;
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
 	}
 	public String getInfoimage() {
 		return infoimage;
@@ -83,10 +83,10 @@ public class StoreVO {
 	public void setKeywd(String keywd) {
 		this.keywd = keywd;
 	}
-	public String getCategody() {
+	public String getCategory() {
 		return category;
 	}
-	public void setCategody(String category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 	public String getFreeyn() {
@@ -109,8 +109,8 @@ public class StoreVO {
 	}
 	@Override
 	public String toString() {
-		return "BoardVO [prodnum=" + prodnum + ", name=" + name + ", thumnail="
-				+ thumnail + ", infoimage=" + infoimage + ", introduce=" + introduce
+		return "BoardVO [prodnum=" + prodnum + ", name=" + name + ", thumbnail="
+				+ thumbnail + ", infoimage=" + infoimage + ", introduce=" + introduce
 				+ ", price=" + price + ", dcprice=" + dcprice+ ", brand=" + brand+ ", keywd=" + keywd
 				+ ", category=" + category+ ", freeyn=" + freeyn+ ", link=" + link+ ", avggrade=" + avggrade
 				 + "]";
