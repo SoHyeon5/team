@@ -13,38 +13,38 @@
 
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
 		있습니다. -->
-	  <select id="read" resultType="org.zerock.domain.BoardVO">
-       SELECT NUM
-      , EMAIL
-      , NAME
-      , TYPE
-      , ACREAGE
-      , BUDGET
-      , FIELD
-      , SPACE
-      , TITLE
-      , CONTENTOF
-      , REGISTDAY
-      FROM WRITING 
-       WHERE NUM = #{num}
-    </select>
-	 
-	  <update id="update">
-       UPDATE WRITING SET 
-       TYPE=#{type}
-       ,ACREAGE=#{acreage}
-       ,BUDGET=#{budget}
-       ,FIELD=#{field}
-       ,SPACE=#{space}
-       ,TITLE=#{title}
-       ,CONTENTOF=#{contentOf}
-       WHERE NUM = #{num}
-    </update>
-    
-     <delete id="delete">
-      delete from WRITING where NUM = #{num}
-      </delete>
-	 	
+	<select id="read" resultType="org.zerock.domain.BoardVO">
+		SELECT NUM
+		, EMAIL
+		, NAME
+		, TYPE
+		, ACREAGE
+		, BUDGET
+		, FIELD
+		, SPACE
+		, TITLE
+		, CONTENTOF
+		, REGISTDAY
+		FROM WRITING
+		WHERE NUM = #{num}
+	</select>
+
+	<update id="update">
+		UPDATE WRITING SET
+		TYPE=#{type}
+		,ACREAGE=#{acreage}
+		,BUDGET=#{budget}
+		,FIELD=#{field}
+		,SPACE=#{space}
+		,TITLE=#{title}
+		,CONTENTOF=#{contentOf}
+		WHERE NUM = #{num}
+	</update>
+
+	<delete id="delete">
+		delete from WRITING where NUM = #{num}
+	</delete>
+
 	<select id="selectBoardList"
 		resultType="org.zerock.domain.BoardVO">
 		SELECT NUM
@@ -54,7 +54,8 @@
 		, ACREAGE
 		, BUDGET
 		, FIELD
-		, SPACE
+		,
+		SPACE
 		, TITLE
 		, CONTENTOF
 		, REGISTDAY
@@ -71,7 +72,8 @@
 		, ACREAGE
 		, BUDGET
 		, FIELD
-		, SPACE
+		,
+		SPACE
 		, TITLE
 		, CONTENTOF
 		, REGISTDAY
@@ -80,9 +82,8 @@
 		ORDER BY NUM
 		DESC
 	</select>
-	
-		<select id="listPage" 
-		resultType="org.zerock.domain.BoardVO">
+
+	<select id="listPage" resultType="org.zerock.domain.BoardVO">
  <![CDATA[
  SELECT RNUM, NUM
 		, EMAIL
@@ -105,8 +106,7 @@
  ]]>
 	</select>
 
-	<select id="listCriteria"
-		resultType="org.zerock.domain.BoardVO">
+	<select id="listCriteria" resultType="org.zerock.domain.BoardVO">
  <![CDATA[
  select RNUM, NUM
 		, EMAIL
@@ -126,10 +126,10 @@
 		WHERE RNUM BETWEEN ((#{page}-1)*#{perPageNum}+1) AND (#{page}*#{perPageNum})  
 		order by num desc, REGISTDAY desc
  ]]>
-<!--  		WHERE RNUM BETWEEN 1 AND 10 -->
-<!-- 		WHERE RNUM BETWEEN #{pageStart}+1 AND 10   -->
+		<!-- WHERE RNUM BETWEEN 1 AND 10 -->
+		<!-- WHERE RNUM BETWEEN #{pageStart}+1 AND 10 -->
 	</select>
-	
+
 	<select id="countPaging" resultType="int">
  <![CDATA[
  select 
@@ -140,5 +140,23 @@
    num > 0 
  ]]>
 	</select>
-	
+
+	<insert id="addAttach">
+		insert into board_attach(fullname, bno) values (#{fullName}, LAST_INSERT_ID())
+	</insert>
+
+
+	<select id="getAttach" resultType="string">
+		select fullname from board_attach where bno = #{bno} order by regdate
+	</select>
+
+
+	<delete id="deleteAttach">
+		delete from board_attach where bno = #{bno}
+	</delete>
+
+	<insert id="replaceAttach">
+		insert into board_attach(fullname, bno) values (#{fullName}, #{bno})
+	</insert>
+
 </mapper>

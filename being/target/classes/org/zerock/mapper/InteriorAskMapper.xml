@@ -26,14 +26,14 @@
       , DATEDONE
       , MESSAGE
       , TEL
+      , CNAME
       FROM REQ_MNG 
        WHERE NUM = #{num}
     </select>
 	 
 	  <update id="update">
        UPDATE REQ_MNG SET 
-       CNAME=#{cname}
-       ,ANSWER=#{answer}
+          ANSWER=#{answer}
        WHERE NUM = #{num}
     </update>
     
@@ -56,6 +56,7 @@
       , DATEDONE
       , MESSAGE
       , TEL
+      , CNAME
       FROM REQ_MNG 
 		ORDER BY NUM DESC
 	</select>
@@ -82,10 +83,9 @@
 		DESC
 	</select>
 	
-		<select id="listPage" 
+	<select id="selectInteriorAskList3"
 		resultType="org.zerock.domain.InteriorAskVO">
- <![CDATA[
- SELECT RNUM, NUM     
+		SELECT NUM       <!-- 인테리어 신청글 + 업체답변 + 인테리어 후기 READ -->
       , EMAIL
       , NAME
       , TITLE
@@ -98,6 +98,26 @@
       , DATEDONE
       , MESSAGE
       , TEL
+      , CNAME
+      , ANSWER
+      , GRADE
+      , CONTENTOF
+      , IMAGEA
+      , IMAGEB
+      FROM REQ_MNG 
+		ORDER BY NUM
+		DESC
+	</select>
+	
+		<select id="listPage" 
+		resultType="org.zerock.domain.InteriorAskVO">
+ <![CDATA[
+ SELECT RNUM, NUM     
+       , EMAIL
+      , NAME
+      , TITLE
+      , REGISTDAY
+      , CNAME
 		FROM (
 		SELECT ROW_NUMBER() OVER (ORDER BY NUM) RNUM, A.*
 		FROM REQ_MNG A ORDER BY NUM
@@ -116,14 +136,7 @@
       , NAME
       , TITLE
       , REGISTDAY
-      , BUDGET
-      , AREA
-      , FIELDOF
-      , ADDRESS
-      , DATESTART
-      , DATEDONE
-      , MESSAGE
-      , TEL
+      , CNAME
 		FROM (
 		SELECT ROW_NUMBER() OVER (ORDER BY NUM) RNUM, A.*
 		FROM REQ_MNG A ORDER BY NUM

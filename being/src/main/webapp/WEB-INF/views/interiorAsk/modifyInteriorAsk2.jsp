@@ -5,9 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>시공 상담</title>
+<title>시공 후기</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/interior.css">
 <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+
 
 </head>
 
@@ -23,10 +24,10 @@
 </header>
 <body>
 
-<p class="box-title">인테리어 신청서</p>
+<p class="box-title">인테리어 신청하기</p>
 
 <div class="ask-box">
-<form action="${pageContext.request.contextPath}/interiorAsk/readInteriorAsk" method="post">
+<form action="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1" method="post">
 <input type="hidden" name="email" value="${login.email}">
 <input type="hidden" name="name" value="${login.name}">
 <div class="all-ask">
@@ -66,20 +67,48 @@
 </p>
 </div>
 
-<p>연락처 :
+<p>
+	연락처 :
 	<input type="text" name="tel" value="${interiorAskVO.tel}">
 </p>
-
+<div class="ask-message">
+<p>업체 답변:
+	<input type="text" name="answer" value="${interiorAskVO.answer}">
+</p>
 </div>
 
+<u:isGeneral>
+<div class="wrap">
+    <h2>후기</h2>
+        <p class="title_star">별점과 총평을 남겨주세요.</p>
+ 
+        <div class="review_rating">
+            <div class="warning_msg">별점을 선택해 주세요.</div>
+            <div class="rating">
+                <!-- 해당 별점을 클릭하면 해당 별과 그 왼쪽의 모든 별의 체크박스에 checked 적용 -->
+                <input type="checkbox" name="grade" id="rating1" value="1" class="rate_radio" title="1점">
+                <label for="rating1"></label>
+                <input type="checkbox" name="grade" id="rating2" value="2" class="rate_radio" title="2점">
+                <label for="rating2"></label>
+                <input type="checkbox" name="grade" id="rating3" value="3" class="rate_radio" title="3점" >
+                <label for="rating3"></label>
+                <input type="checkbox" name="grade" id="rating4" value="4" class="rate_radio" title="4점">
+                <label for="rating4"></label>
+                <input type="checkbox" name="grade" id="rating5" value="5" class="rate_radio" title="5점">
+                <label for="rating5"></label>
+            </div>
+        </div>
+        <div class="review_contentOf">
+            <div class="warning_msg">5자 이상으로 작성해 주세요.</div>
+            <textarea rows="10" class="review_textarea" name="contentof">${modReq.contentof}</textarea>
+        </div>   
+</div>
 
-<div>
-	<c:if test="${UserVO.lvl==1 || UserVO.lvl==3}">
-		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1?num=${interiorAskVO.num}">업체 답변 등록</a>
-	</c:if>	
-	<c:if test="${UserVO.lvl==1}">	
-		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/remove?num=${interiorAskVO.num}">게시글 삭제</a>
-	</c:if>
+<p>첨부파일 :
+	<textarea name="answer" rows="5" cols="30">${modReq.imagea}</textarea>
+</p>
+</u:isGeneral>
+<input type="submit" value="후기 등록">
 </div>
 
 

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>시공 상담</title>
+<title>시공 업체 답변</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/interior.css">
 <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
 
@@ -69,13 +69,19 @@
 <p>연락처 :
 	<input type="text" name="tel" value="${interiorAskVO.tel}">
 </p>
+<div class="ask-message">
+<p>업체답변 :
+	<input type="text" name="answer" value="${interiorAskVO.answer}">
+</p>
+</div>
+
 
 </div>
 
 
 <div>
 	<c:if test="${UserVO.lvl==1 || UserVO.lvl==3}">
-		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1?num=${interiorAskVO.num}">업체 답변 등록</a>
+		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1?num=${interiorAskVO.num}">업체 답변 수정</a>
 	</c:if>	
 	<c:if test="${UserVO.lvl==1}">	
 		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/remove?num=${interiorAskVO.num}">게시글 삭제</a>

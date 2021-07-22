@@ -5,9 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>시공 상담</title>
+<title>시공 업체 답변</title>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/interior.css">
 <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
+
 
 </head>
 
@@ -23,10 +24,10 @@
 </header>
 <body>
 
-<p class="box-title">인테리어 신청서</p>
+<p class="box-title">인테리어 신청하기</p>
 
 <div class="ask-box">
-<form action="${pageContext.request.contextPath}/interiorAsk/readInteriorAsk" method="post">
+<form action="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1" method="post">
 <input type="hidden" name="email" value="${login.email}">
 <input type="hidden" name="name" value="${login.name}">
 <div class="all-ask">
@@ -66,20 +67,22 @@
 </p>
 </div>
 
-<p>연락처 :
+<p>
+	연락처 :
 	<input type="text" name="tel" value="${interiorAskVO.tel}">
 </p>
 
+<div class="ask-message">
+<u:isAdmin>
+<p>업체 답변:
+	<textarea name="answer" rows="5" cols="30">${modReq.answer}</textarea>
+</p>
+</u:isAdmin>
+</div>
+<div>
+	<button type="submit" class="btn" id="btn"> 업체 답변 하기</button>
 </div>
 
-
-<div>
-	<c:if test="${UserVO.lvl==1 || UserVO.lvl==3}">
-		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1?num=${interiorAskVO.num}">업체 답변 등록</a>
-	</c:if>	
-	<c:if test="${UserVO.lvl==1}">	
-		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/remove?num=${interiorAskVO.num}">게시글 삭제</a>
-	</c:if>
 </div>
 
 

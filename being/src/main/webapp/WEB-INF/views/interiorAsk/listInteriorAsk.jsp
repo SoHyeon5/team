@@ -20,8 +20,8 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Being</title>
-
+	<title>시공 상담</title>
+	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/interior.css">
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 	<!--
 			CSS
@@ -37,43 +37,47 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin.css">
+	
 </head>
 <body>
 <%@ include file="../include/header.jspf" %>
+<div class="list-box">
 
-<table border="1">
-	
+<table class = "listbox">
+	<tr>
+	<th>제목</th>
+	<th>업체 명</th>
+	<th>신청자</th>
+	<th>신청일자</th>
+</tr>
 <c:if test="${interiorAskPage.hasNoInteriorAsk()}">
 	<tr>
 		<td colspan="4">신청 없습니다.</td>
 	</tr>
 </c:if>
 <c:forEach var="interiorAskVO" items="${listInteriorAsk}">
+
 	<tr>
-		<td>
-<!-- 		신청 제목 -->
+		<td><!-- 신청 제목 -->
 		<a href='${pageContext.request.contextPath}/interiorAsk/readInteriorAsk?num=${interiorAskVO.num}&page=${params.page}'>
 		<c:out value="${interiorAskVO.title}"/>
-		</a>
+		</a></td>
 		<td>${interiorAskVO.cname}</td>
-		<td>${interiorAskVO.budget}</td>
-		<td>${interiorAskVO.area}</td>
-		<td>${interiorAskVO.datestart}</td>
-		<td>${interiorAskVO.datedone}</td>
-		<td>${interiorAskVO.message}</td>
-		<td>${interiorAskVO.tel}</td>
-
+		<td>${interiorAskVO.name}</td>
+		<td>${interiorAskVO.registday}</td>
 	</tr>
 	</c:forEach>
-	
+</table>
+
 <u:isGeneral>
 <p class="writebtn">
 <a class="btn" href="/interiorAsk/newInteriorAksForm">인테리어 신청하기</a>
 </p>
 </u:isGeneral>
 
+
 <table class="listbtn">
-<%-- <c:if test="${articlePage.hasArticles()}"> --%>
+
 	<tr>	
 		<td colspan="4">
 			<c:if test="${pageMaker.prev}">
@@ -95,6 +99,9 @@
 	</tr>
 <%-- </c:if> --%>
 </table>
+
+</div>	
+
 
  <%@ include file="../include/footer.jspf" %>
 
