@@ -28,4 +28,6 @@ public interface UserMapper {
 	public int countPaging(Criteria cri) throws Exception;
 
 	public void update(UserVO vo) throws Exception;
+	
+	UserVO kakaoLogin(UserVO userVO) throws Exception;
 }

@@ -26,4 +26,6 @@ public interface UserService {
 	public int listCountCriteria(Criteria cri) throws Exception;
 
 	public void modify(UserVO user) throws Exception;
+	
+	public UserVO kakaoLogin(UserVO userVO) throws Exception;
 }

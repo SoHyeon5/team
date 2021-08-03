@@ -87,5 +87,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    RNUM > 0
  ]]>
 	</select>
+	
+	<select id="kakaoLogin" resultType="org.zerock.domain.UserVO">
+		select email, password, name from members where email = #{email}
+	</select>
 
 </mapper>

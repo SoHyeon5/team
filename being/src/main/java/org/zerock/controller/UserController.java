@@ -1,5 +1,8 @@
 package org.zerock.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +12,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.message.BasicNameValuePair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -28,6 +38,9 @@ import org.zerock.domain.UserVO;
 import org.zerock.dto.LoginDTO;
 import org.zerock.interceptor.LoginInterceptor;
 import org.zerock.service.UserService;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/user/*")
@@ -114,5 +127,148 @@ public class UserController {
 
 		return "redirect:/user/loginForm";
 	}
-
+	
+	
+	public static JsonNode getAccessToken(String autorize_code) {
+		 
+        final String RequestUrl = "https://kauth.kakao.com/oauth/token";
+        final List<BasicNameValuePair> postParams = new ArrayList<BasicNameValuePair>();
+ 
+        postParams.add(new BasicNameValuePair("grant_type", "authorization_code"));
+        postParams.add(new BasicNameValuePair("client_id", "d31e8bec18195625a37e0ff70e60e749"));
+        postParams.add(new BasicNameValuePair("redirect_uri", "http://localhost:8080/being/user/KaKaoLogin"));
+        postParams.add(new BasicNameValuePair("code", autorize_code));
+ 
+        final HttpClient client = HttpClientBuilder.create().build();
+        final HttpPost post = new HttpPost(RequestUrl);
+ 
+        JsonNode returnNode = null;
+ 
+        try {
+ 
+            post.setEntity(new UrlEncodedFormEntity(postParams));
+            final HttpResponse response = client.execute(post);
+            final int responseCode = response.getStatusLine().getStatusCode();
+            
+            System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+            System.out.println("Post parameters : " + postParams);
+            System.out.println("Response Code : " +responseCode);
+            
+            //JSON 형태 반환값 처리
+            ObjectMapper mapper = new ObjectMapper();
+            returnNode = mapper.readTree(response.getEntity().getContent());
+ 
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+ 
+        } catch (ClientProtocolException e) {
+            e.printStackTrace();
+ 
+        } catch (IOException e) {
+            e.printStackTrace();
+ 
+        } finally {
+ 
+        }
+ 
+        return returnNode;
+    }
+   
+	   public static JsonNode getKakaoUserInfo(String access_token) { 
+			
+		    final String RequestUrl = "https://kapi.kakao.com/v2/user/me"; 
+			final HttpClient client = HttpClientBuilder.create().build(); 
+			final HttpPost post = new HttpPost(RequestUrl); 
+			String accessToken = access_token;
+			
+			// add header
+			post.addHeader("Authorization", "Bearer " + accessToken); 
+			JsonNode returnNode = null; 
+			try { 
+				final HttpResponse response = client.execute(post); 
+				final int responseCode = response.getStatusLine().getStatusCode();
+				System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+	            System.out.println("Response Code : " + responseCode);
+				
+				ObjectMapper mapper = new ObjectMapper(); 
+				returnNode = mapper.readTree(response.getEntity().getContent()); } 
+			catch (ClientProtocolException e) { e.printStackTrace(); } 
+			catch (IOException e) { e.printStackTrace(); } 
+			finally {
+				// clear resources 
+				} return returnNode; 
+			}
+	   
+	  
+	   public int kakaoLogout(String access_token) {
+	        
+		    final String RequestUrl = "https://kapi.kakao.com/v1/user/logout";
+	        final HttpClient client = HttpClientBuilder.create().build(); 
+			final HttpPost post = new HttpPost(RequestUrl); 
+			String accessToken = access_token;
+			int responseCode = 0;
+			
+			post.addHeader("Authorization", "Bearer " + accessToken); 
+			JsonNode returnNode = null; 
+			
+			try { 
+				final HttpResponse response = client.execute(post); 
+				responseCode = response.getStatusLine().getStatusCode();
+				System.out.println("\nSending 'POST' request to URL : " + RequestUrl);
+	            System.out.println("Response Code : " + responseCode);
+			} catch (UnsupportedEncodingException e){
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch(IOException e) {
+				e.printStackTrace();
+			} finally {
+				
+			}
+			
+			return responseCode;
+			
+	   }
+	   
+	   
+	   @RequestMapping(value = "/KaKaoLogin", method = RequestMethod.GET)
+	   public String kakaologin(@RequestParam("code") String code, HttpSession session, Model model)throws Exception{
+		   
+		   JsonNode jsonToken = getAccessToken(code);
+		   System.out.println(jsonToken);
+		   
+		   String access_token  = jsonToken.get("access_token").toString();
+		   JsonNode userInfo = getKakaoUserInfo(access_token );
+		   System.out.println(userInfo);
+		  
+		   String id = userInfo.path("kakao_account").path("email").toString();
+		   String nickName = userInfo.path("properties").path("nickname").toString();
+		   
+		   UserVO userVO = new UserVO();
+		   
+		   userVO.setEmail(id);
+		   
+		   
+		   UserVO vo = service.kakaoLogin(userVO);
+		   if (vo == null) {
+			   vo = new UserVO();
+			   vo.setEmail(id); 
+			   vo.setName(nickName);
+			   vo.setPassword(id);
+			   service.create(vo);
+			   
+		      }
+		   
+		   System.out.println(vo);
+		   session.setAttribute("login", vo);
+		   session.setAttribute("access_token", access_token);
+		  
+		   System.out.println(id+nickName);
+		   
+		   //model.addAttribute("userVO", vo);
+		     
+		   
+		   return "redirect:/index";
+		   
+	  }
 }

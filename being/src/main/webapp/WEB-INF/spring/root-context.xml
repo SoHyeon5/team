@@ -93,7 +93,7 @@
 	</bean>
 	
 	<bean id="uploadPath" class="java.lang.String">
-      <constructor-arg value="C:\\zzz\\upload">
+      <constructor-arg value="C:\\User\\ksmoon\\git\\being\\src\\main\\webapp\resources\\img\\file">
       </constructor-arg>
    </bean>
 

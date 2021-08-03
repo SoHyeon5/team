@@ -72,4 +72,11 @@ public class UserServiceImpl implements UserService {
 		userMapper.update(user);
 		
      }
+	
+	@Override
+    @Transactional
+	 public UserVO kakaoLogin(UserVO userVO) throws Exception {
+		 return userMapper.kakaoLogin(userVO); 
+		 
+	}
 }

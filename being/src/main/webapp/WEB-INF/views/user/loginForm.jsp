@@ -74,6 +74,12 @@
                   <button type="submit" class="btn btn-primary btn-block btn-flat"
                      id="btn1">로그인</button>
                </div>
+               
+               <c:if test="${userId eq null}">
+					 <a href="https://kauth.kakao.com/oauth/authorize?client_id=d31e8bec18195625a37e0ff70e60e749&redirect_uri=http://localhost:8080/being/user/KaKaoLogin&response_type=code&prompt=login">			            
+			            <img src="${pageContext.request.contextPath}/resources/img/kakao_login_large_narrow.png">
+			        </a>
+			    </c:if>
                <!-- /.col -->
             </div>
          </form>
