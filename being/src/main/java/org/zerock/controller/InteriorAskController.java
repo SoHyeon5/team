@@ -117,9 +117,27 @@ public class InteriorAskController {
 //	  }
 	 
 	  @RequestMapping(value = "/readInteriorAsk", method = RequestMethod.GET)
-	     public void read(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+	    public void selectInteriorAskList(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+	      model.addAttribute(interiorAskService.read(num));
+	      
+	      InteriorAskVO result = interiorAskService.read(num);
+	      System.out.println("kkk"+result.toString());
+	   }
+	  
+	  @RequestMapping(value = "/readInteriorAsk2", method = RequestMethod.GET)
+	     public void selectInteriorAskList2(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
 	       model.addAttribute(interiorAskService.read(num));
+	       InteriorAskVO result = interiorAskService.read(num);
+		      System.out.println("hhh"+result.toString());
+	    
+	     }
+	  
+	  @RequestMapping(value = "/readInteriorAsk3", method = RequestMethod.GET)
+	     public void selectInteriorAskList3(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+
+	       model.addAttribute(interiorAskService.read(num));
+	       
 	     }
 	   
 	     @RequestMapping(value = "/remove", method = {RequestMethod.POST ,RequestMethod.GET})
@@ -132,13 +150,13 @@ public class InteriorAskController {
 	       return "redirect:/interiorAsk/listInteriorAsk";
 	     }
 
-	     @RequestMapping(value = "/modifyInteriorAskForm", method = RequestMethod.GET)
+	     @RequestMapping(value = "/modifyInteriorAsk1", method = RequestMethod.GET)
 	     public void modifyGET(int num, Model model) throws Exception {
 
 	       model.addAttribute(interiorAskService.read(num));
 	     }
 
-	     @RequestMapping(value = "/modifyInteriorAskForm", method = RequestMethod.POST)
+	     @RequestMapping(value = "/modifyInteriorAsk1", method = RequestMethod.POST)
 	     public String modifyPOST(InteriorAskVO interiorAsk, RedirectAttributes rttr) throws Exception {
 
 	       logger.info("mod post............");
@@ -146,7 +164,26 @@ public class InteriorAskController {
 	       interiorAskService.modify(interiorAsk);
 	       rttr.addFlashAttribute("msg", "SUCCESS");
 
-	       return "redirect:/interiorAsk/listinteriorAsk";
-	     } 
+	       return "redirect:/interiorAsk/readInteriorAsk2?num="+interiorAsk.getNum();
+	     }
+	     
+	     @RequestMapping(value = "/modifyInteriorAsk2", method = RequestMethod.GET)
+	     public void modify2GET(int num, Model model) throws Exception {
+
+	       model.addAttribute(interiorAskService.read(num));
+	     }
+
+	     @RequestMapping(value = "/modifyInteriorAsk2", method = RequestMethod.POST)
+	     public String modify2POST(InteriorAskVO interiorAsk, RedirectAttributes rttr) throws Exception {
+
+	       logger.info("mod post............");
+
+	       interiorAskService.modify2(interiorAsk);
+	       rttr.addFlashAttribute("msg", "SUCCESS");
+
+	       return "redirect:/interiorAsk/readInteriorAsk3?num="+interiorAsk.getNum();
+	     }
+	     
+	     
 	
 }

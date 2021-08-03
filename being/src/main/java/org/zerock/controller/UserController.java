@@ -64,12 +64,12 @@ public class UserController {
 		if (vo == null) {
 			return;
 		}
-		if (vo.getLvl() == 1) {
-			request.getSession().setAttribute("admin", vo);
-		}
-		if (vo.getLvl() == 2) {
-			request.getSession().setAttribute("general", vo);
-		}
+//		if (vo.getLvl() == 1) {
+//			request.getSession().setAttribute("admin", vo);
+//		}
+//		if (vo.getLvl() == 2) {
+//			request.getSession().setAttribute("general", vo);
+//		}
 		model.addAttribute("userVO", vo);
 		if (dto.isUseCookie()) {
 			int amount = 60 * 60 * 24 * 7;

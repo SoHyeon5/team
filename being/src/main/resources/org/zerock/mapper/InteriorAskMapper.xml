@@ -13,22 +13,26 @@
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
 		있습니다. -->
 	  <select id="read" resultType="org.zerock.domain.InteriorAskVO">
-       SELECT NUM
-      , EMAIL
-      , NAME
-      , TITLE
-      , REGISTDAY
-      , BUDGET
-      , AREA
-      , FIELDOF
-      , ADDRESS
-      , DATESTART
-      , DATEDONE
-      , MESSAGE
-      , TEL
-      , CNAME
-      FROM REQ_MNG 
-       WHERE NUM = #{num}
+      SELECT
+   A.NUM
+   , A.EMAIL
+   , A.NAME
+   , A.TITLE
+   , A.REGISTDAY
+   , A.BUDGET
+   , A.AREA
+   , A.FIELDOF
+   , A.ADDRESS
+   , A.DATESTART
+   , A.DATEDONE
+   , A.MESSAGE
+   , A.TEL
+   , A.CNAME
+   , A.ANSWER
+   , A.GRADE
+   , A.CONTENTOF
+FROM REQ_MNG A
+WHERE NUM = #{num}
     </select>
 	 
 	  <update id="update">
@@ -79,8 +83,7 @@
       , CNAME
       , ANSWER
       FROM REQ_MNG 
-		ORDER BY NUM
-		DESC
+		ORDER BY NUM DESC
 	</select>
 	
 	<select id="selectInteriorAskList3"
@@ -105,8 +108,7 @@
       , IMAGEA
       , IMAGEB
       FROM REQ_MNG 
-		ORDER BY NUM
-		DESC
+		ORDER BY NUM DESC
 	</select>
 	
 		<select id="listPage" 

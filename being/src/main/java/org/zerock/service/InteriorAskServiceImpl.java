@@ -60,6 +60,10 @@ public class InteriorAskServiceImpl implements InteriorAskService {
 	    public void modify(InteriorAskVO interiorAsk) throws Exception {
 	    	interiorAskMapper.update(interiorAsk);
 	     }
+	    @Override
+	    public void modify2(InteriorAskVO interiorAsk) throws Exception {
+	    	interiorAskMapper.update(interiorAsk);
+	     }
 
 	    @Override
 	    public void remove(Integer num) throws Exception {

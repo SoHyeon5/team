@@ -21,6 +21,8 @@ public interface InteriorAskService {
 	 public int listCountCriteria(Criteria cri) throws Exception;
 	 
 	 public void modify(InteriorAskVO interiorAsk) throws Exception;
+	 
+	 public void modify2(InteriorAskVO interiorAsk) throws Exception;
 
 	 public void remove(Integer num) throws Exception;
 

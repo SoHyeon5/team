@@ -269,3 +269,102 @@ select {
 
 
 
+
+/*  interiorASK - LIST  */
+
+.list-box {
+	 margin: 100px 100px 100px 400px;
+   font-size: 30px;
+   color: #6a6a6a;
+   font-family:'Nanumgothic';
+}
+.list-box a{
+	color: #6a6a6a;
+}
+
+.listbox{
+	border : 2px solid #65a343;
+	margin-bottom:100px;
+}
+
+.listbox th{
+	padding : 10px;
+	text-align:left;
+	font-size: 40px;
+   font-weight: 700;
+   height : 60px;
+}
+.listbox td{
+	padding : 10px;
+	text-align:left;
+	width:200px;
+}
+
+.listbox td:nth-child(2){
+	width:400px;
+}
+
+.listbox td:nth-child(4){
+	width:450px;
+}
+.listbox tr:nth-child(even){
+	background : #cce4be;
+}
+
+
+
+
+.askbtn{
+	text-align:center;
+   margin-right: 200px;
+   padding-top:50px;
+   padding-bottom:50px;
+}
+
+.askbtn .btn{
+	
+   width:300px;
+   height: 70px;
+   font:"³ª´® °íµñ";
+   font-size: 30px;
+   color:#ffffff;
+   font-weight:bold;
+    border:5;
+   border-radius: 5px; 
+  border-color:#8BC26D;
+  background:#8BC26D;
+  outline:0;
+}
+.askbtn .btn:hover{
+   background: #7fb362;
+   
+}
+
+
+/* modify */
+.ask-box-modi {
+   margin: 40px 0px 100px 500px;
+   padding-top: 40px;
+   padding-bottom:40px;
+   width: 900px;
+   height: 1600px;
+   text-align: center;
+   border-radius: 7px;
+   border: 2px solid #9dcb85;
+   font-size: 20px;
+   font-weight: 700;
+   color: #6a6a6a;
+}
+.ask-box-end {
+   margin: 40px 0px 100px 500px;
+   padding-top: 40px;
+   padding-bottom:40px;
+   width: 900px;
+   height: 2000px;
+   text-align: center;
+   border-radius: 7px;
+   border: 2px solid #9dcb85;
+   font-size: 20px;
+   font-weight: 700;
+   color: #6a6a6a;
+}

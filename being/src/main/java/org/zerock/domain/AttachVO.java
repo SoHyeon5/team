@@ -6,6 +6,7 @@ import java.util.Date;
 public class AttachVO {
 	
 	private Integer bno;
+	
 	private String title;
 	private String content;
 	private String writer;

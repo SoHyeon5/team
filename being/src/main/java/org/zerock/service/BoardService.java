@@ -2,13 +2,13 @@ package org.zerock.service;
 
 import java.util.List;
 
-import org.zerock.domain.AttachVO;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileVO;
 
 public interface BoardService {
 	
-	public void create(BoardVO board) throws Exception;
+	public void create(BoardVO param, List<FileVO> filelist) throws Exception;
 	
 	public List<BoardVO> selectBoardList() throws Exception;
 	
@@ -20,19 +20,11 @@ public interface BoardService {
 
 	 public int listCountCriteria(Criteria cri) throws Exception;
 	 
-	 public void modify(BoardVO board) throws Exception;
+	 public void modify(BoardVO board, List<FileVO> filelist) throws Exception;
 
 	 public void remove(Integer num) throws Exception;
 	 
-	 // 업로드 테스트
+	 public List<FileVO> selectBoardFileList(Integer num) throws Exception;
+
 	 
-	 public void registA(AttachVO attach) throws Exception;
-
-	  public AttachVO readA(Integer bno) throws Exception;
-
-	  public void modifyA(AttachVO attach) throws Exception;
-
-	  public void removeA(Integer bno) throws Exception;
-
-
 }

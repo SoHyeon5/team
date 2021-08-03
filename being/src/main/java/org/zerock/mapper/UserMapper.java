@@ -3,6 +3,7 @@ package org.zerock.mapper;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.UserVO;
@@ -12,7 +13,7 @@ public interface UserMapper {
 
 	UserVO login(LoginDTO dto) throws Exception;
 
-	void keepLogin(String email, String sessionId, Date next) throws Exception;
+	void keepLogin(@Param("email")String email, @Param("sessionId")String sessionId, @Param("next")Date next) throws Exception;
 
 	UserVO checkUserWithSessionKey(String value);
 

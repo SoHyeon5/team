@@ -2,37 +2,34 @@ package org.zerock.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileUtil;
+import org.zerock.domain.FileVO;
 import org.zerock.domain.PageMaker;
 import org.zerock.domain.SearchCriteria;
 import org.zerock.service.BoardService;
-import org.zerock.util.MediaUtils;
-import org.zerock.util.UploadFileUtils;
 
 /**
  * Handles requests for the application home page.
@@ -43,261 +40,158 @@ public class BoardController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
 
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+
 	@Inject
 	private BoardService boardService;
-	
-	 @RequestMapping(value = "/newArticleForm", method = RequestMethod.GET)
-	  public void registerGET(BoardVO board, Model model) throws Exception {
 
-	    logger.info("newArticleForm get ...........");
-	  }
+	@RequestMapping(value = "/newArticleForm", method = RequestMethod.GET)
+	public void registerGET(BoardVO board, Model model) throws Exception {
 
-	  // @RequestMapping(value = "/register", method = RequestMethod.POST)
-	  // public String registPOST(BoardVO board, Model model) throws Exception {
-	  //
-	  // logger.info("regist post ...........");
-	  // logger.info(board.toString());
-	  //
-	  // service.regist(board);
-	  //
-	  // model.addAttribute("result", "success");
-	  //
-	  // //return "/board/success";
-	  // return "redirect:/board/listAll";
-	  // }
+		logger.info("newArticleForm get ...........");
+	}
 
-	  @RequestMapping(value = "/newArticleForm", method = RequestMethod.POST)
-	  public String registPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/newArticleForm", method = RequestMethod.POST)
+	public String registPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+		logger.info("newArticleForm post ...........");
+		logger.info(board.toString());
 
-	    logger.info("newArticleForm post ...........");
-	    logger.info(board.toString());
+		FileUtil fs = new FileUtil(uploadPath);
 
-	    boardService.create(board);
+		List<FileVO> filelist = null;
+		logger.info(uploadPath);
 
-	    rttr.addFlashAttribute("msg", "SUCCESS");
-	    
-	    logger.info(board.toString());
-	    
-	    return "redirect:/board/listArticle";
-	  }
+		List<?> files = board.getUploadfile();
 
-//	@RequestMapping(value = "/listArticle")
-//	public String boardList(Model model) throws Exception {
-//		logger.info("// /board/listArticle");
-//
-//		List<BoardVO> listArticle = boardService.selectBoardList();
-//
-//		logger.info("// listArticle.toString()=" + listArticle.toString());
-//
-//		model.addAttribute("listArticle", listArticle);
-//		
-//		return "/board/listArticle";
-//		
-//	}
-	  
-	  @RequestMapping(value = "/listArticle", method = RequestMethod.GET)
-	  public void listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+		// logger.info(((FileVO)files.toArray()[0]).getFilename());
 
-	    logger.info(cri.toString());
+		if (files != null && !files.isEmpty()) {
+			filelist = fs.saveAllFiles(board.getUploadfile());
+		}
 
-	     model.addAttribute("listArticle", boardService.listCriteria(cri));
+		boardService.create(board, filelist);
+
+		rttr.addFlashAttribute("msg", "SUCCESS");
+
+		logger.info(board.toString());
+
+		return "redirect:/board/listArticle";
+	}
+
+	@RequestMapping(value = "/listArticle", method = RequestMethod.GET)
+	public void listPage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+
+		logger.info(cri.toString());
+
+		model.addAttribute("listArticle", boardService.listCriteria(cri));
 //	    model.addAttribute("listArticle", boardService.listPage(page));
 
-	    PageMaker pageMaker = new PageMaker();
-	    pageMaker.setCri(cri);
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
 
-	     pageMaker.setTotalCount(boardService.listCountCriteria(cri));
+		pageMaker.setTotalCount(boardService.listCountCriteria(cri));
 //	    pageMaker.setTotalCount(boardService.listSearchCount(cri));
 
-	    model.addAttribute("pageMaker", pageMaker);
-	  }
-	
-//	 @RequestMapping(value = "/readArticle", method = RequestMethod.GET)
-//	  public void read(@RequestParam("num") int num, Model model) throws Exception {
-//
-//	    model.addAttribute(boardService.read(num));
-//	  }
-	 
-	  @RequestMapping(value = "/readArticle", method = RequestMethod.GET)
-	     public void read(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		model.addAttribute("pageMaker", pageMaker);
+	}
 
-	       model.addAttribute(boardService.read(num));
-	     }
-	   
-	     @RequestMapping(value = "/remove", method = {RequestMethod.POST ,RequestMethod.GET})
-	     public String remove(@RequestParam("num") int num, RedirectAttributes rttr) throws Exception {
+	@RequestMapping(value = "/readArticle", method = RequestMethod.GET)
+	public void read(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
 
-	        boardService.remove(num);
+		List<?> listview = boardService.selectBoardFileList(num);
 
-	       rttr.addFlashAttribute("msg", "SUCCESS");
+		// logger.info(((FileVO)listview.toArray()[0]).getFilename());
 
-	       return "redirect:/board/listArticle";
-	     }
+		model.addAttribute(boardService.read(num));
+		model.addAttribute("listview", listview);
+	}
 
-	     @RequestMapping(value = "/modifyForm", method = RequestMethod.GET)
-	     public void modifyGET(int num, Model model) throws Exception {
+	@RequestMapping(value = "/remove", method = { RequestMethod.POST, RequestMethod.GET })
+	public String remove(@RequestParam("num") int num, RedirectAttributes rttr) throws Exception {
 
-	       model.addAttribute(boardService.read(num));
-	     }
+		boardService.remove(num);
 
-	     @RequestMapping(value = "/modifyForm", method = RequestMethod.POST)
-	     public String modifyPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
+		rttr.addFlashAttribute("msg", "SUCCESS");
 
-	       logger.info("mod post............");
+		return "redirect:/board/listArticle";
+	}
 
-	       boardService.modify(board);
-	       rttr.addFlashAttribute("msg", "SUCCESS");
+	@RequestMapping(value = "/modifyForm", method = RequestMethod.GET)
+	public void modifyGET(int num, Model model) throws Exception {
 
-	       return "redirect:/board/listArticle";
-	     } 
-	     
-//	     --업로드 테스트
+		List<?> listview = boardService.selectBoardFileList(num);
 
-	     @Resource(name = "uploadPath")
-	     private String uploadPath;
+		model.addAttribute(boardService.read(num));
+		model.addAttribute("listview", listview);
+	}
 
-	     @RequestMapping(value = "/uploadForm", method = RequestMethod.GET)
-	     public void uploadForm() {
-	     }
+	@RequestMapping(value = "/modifyForm", method = RequestMethod.POST)
+	public String modifyPOST(BoardVO board, RedirectAttributes rttr) throws Exception {
 
-	     @RequestMapping(value = "/uploadForm", method = RequestMethod.POST)
-	     public String uploadForm(MultipartFile file, Model model) throws Exception {
+		FileUtil fs = new FileUtil(uploadPath);
 
-	       logger.info("originalName: " + file.getOriginalFilename());
-	       logger.info("size: " + file.getSize());
-	       logger.info("contentType: " + file.getContentType());
+		List<FileVO> filelist = null;
 
-	       String savedName = uploadFile(file.getOriginalFilename(), file.getBytes());
+		logger.info(uploadPath);
+		List<?> files = board.getUploadfile();
 
-	       model.addAttribute("savedName", savedName);
+		if (files != null && !files.isEmpty()) {
+			fs.deleteFiles(boardService.selectBoardFileList(board.getNum()));
+			filelist = fs.saveAllFiles(board.getUploadfile(), board.getNum());
+		}
 
-	       return "uploadResult";
-	     }
+		boardService.modify(board, filelist);
+		rttr.addFlashAttribute("msg", "SUCCESS");
 
-	     @RequestMapping(value = "/uploadAjax", method = RequestMethod.GET)
-	     public void uploadAjax() {
-	     }
+		return "redirect:/board/listArticle";
+	}
 
-	     private String uploadFile(String originalName, byte[] fileData) throws Exception {
+	@RequestMapping(value = "/fileDownload")
+	public void fileDownload(HttpServletRequest request, HttpServletResponse response) {
+		// String path = "d:\\workspace\\fileupload\\";
 
-	       UUID uid = UUID.randomUUID();
+		String filename = request.getParameter("filename");
+		String downname = request.getParameter("downname");
+		String realPath = "";
 
-	       String savedName = uid.toString() + "_" + originalName;
+		if (filename == null || "".equals(filename)) {
+			filename = downname;
+		}
 
-	       File target = new File(uploadPath, savedName);
+		try {
+			filename = URLEncoder.encode(filename, "UTF-8");
+		} catch (UnsupportedEncodingException ex) {
+			System.out.println("UnsupportedEncodingException");
+		}
 
-	       FileCopyUtils.copy(fileData, target);
+		realPath = uploadPath + "/" + downname.substring(0, 4) + "/" + downname;
+		System.out.println(realPath);
+		File file1 = new File(realPath);
+		System.out.println(file1);
+		if (!file1.exists()) {
+			return;
+		}
 
-	       return savedName;
+		// �뙆�씪紐� 吏��젙
+		response.setHeader("Content-Disposition", "attachment; filename=\"" + filename + "\"");
+		try {
+			OutputStream os = response.getOutputStream();
+			FileInputStream fis = new FileInputStream(realPath);
 
-	     }
-	     
-	     @ResponseBody
-	     @RequestMapping(value ="/uploadAjax", method=RequestMethod.POST, 
-	                     produces = "text/plain;charset=UTF-8")
-	     public ResponseEntity<String> uploadAjax(MultipartFile file)throws Exception{
-	       
-	       logger.info("originalName: " + file.getOriginalFilename());
-	       
-	      
-	       return 
-	         new ResponseEntity<>(
-	             UploadFileUtils.uploadFile(uploadPath, 
-	                   file.getOriginalFilename(), 
-	                   file.getBytes()), 
-	             HttpStatus.CREATED);
-	     }
-	     
-	     
-	     @ResponseBody
-	     @RequestMapping("/displayFile")
-	     public ResponseEntity<byte[]>  displayFile(String fileName)throws Exception{
-	       
-	       InputStream in = null; 
-	       ResponseEntity<byte[]> entity = null;
-	       
-	       logger.info("FILE NAME: " + fileName);
-	       
-	       try{
-	         
-	         String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-	         
-	         MediaType mType = MediaUtils.getMediaType(formatName);
-	         
-	         HttpHeaders headers = new HttpHeaders();
-	         
-	         in = new FileInputStream(uploadPath+fileName);
-	         
-	         if(mType != null){
-	           headers.setContentType(mType);
-	         }else{
-	           
-	           fileName = fileName.substring(fileName.indexOf("_")+1);       
-	           headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-	           headers.add("Content-Disposition", "attachment; filename=\""+ 
-	             new String(fileName.getBytes("UTF-8"), "ISO-8859-1")+"\"");
-	         }
+			int ncount = 0;
+			byte[] bytes = new byte[512];
 
-	           entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), 
-	             headers, 
-	             HttpStatus.CREATED);
-	       }catch(Exception e){
-	         e.printStackTrace();
-	         entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-	       }finally{
-	         in.close();
-	       }
-	         return entity;    
-	     }
-	       
-	     @ResponseBody
-	     @RequestMapping(value="/deleteFile", method=RequestMethod.POST)
-	     public ResponseEntity<String> deleteFile(String fileName){
-	       
-	       logger.info("delete file: "+ fileName);
-	       
-	       String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-	       
-	       MediaType mType = MediaUtils.getMediaType(formatName);
-	       
-	       if(mType != null){      
-	         
-	         String front = fileName.substring(0,12);
-	         String end = fileName.substring(14);
-	         new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
-	       }
-	       
-	       new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-	       
-	       
-	       return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	     }  
-	     
-	     @ResponseBody
-	     @RequestMapping(value="/deleteAllFiles", method=RequestMethod.POST)
-	     public ResponseEntity<String> deleteFile(@RequestParam("files[]") String[] files){
-	       
-	       logger.info("delete all files: "+ files);
-	       
-	       if(files == null || files.length == 0) {
-	         return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	       }
-	       
-	       for (String fileName : files) {
-	         String formatName = fileName.substring(fileName.lastIndexOf(".")+1);
-	         
-	         MediaType mType = MediaUtils.getMediaType(formatName);
-	         
-	         if(mType != null){      
-	           
-	           String front = fileName.substring(0,12);
-	           String end = fileName.substring(14);
-	           new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
-	         }
-	         
-	         new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-	         
-	       }
-	       return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	     }  
+			while ((ncount = fis.read(bytes)) != -1) {
+				os.write(bytes, 0, ncount);
+			}
+			fis.close();
+			os.close();
+		} catch (FileNotFoundException ex) {
+			System.out.println("FileNotFoundException");
+		} catch (IOException ex) {
+			System.out.println("IOException");
+		}
+	}
+
 }

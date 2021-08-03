@@ -1,8 +1,10 @@
 package org.zerock.domain;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 public class BoardVO {
 	
@@ -21,10 +23,20 @@ public class BoardVO {
 	private Date registday;
 	private Integer readcount;
 	
+	private List<MultipartFile> uploadfile;
+	
 //	public BoardVO() {
 //		super();
 //		this.writerVO = new WriterVO();
 //	}
+	
+	 public List<MultipartFile> getUploadfile() {
+	        return uploadfile;
+	    }
+
+	 public void setUploadfile(List<MultipartFile> uploadfile) {
+	        this.uploadfile = uploadfile;
+	    }
 	
 	public Integer getNum() {
 		return num;
@@ -106,13 +118,16 @@ public class BoardVO {
 	public void setReadcount(Integer readcount) {
 		this.readcount = readcount;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "BoardVO [name=" + name + ", email=" + email + ", num=" + num + ", type=" + type + ", acreage=" + acreage
 				+ ", budget=" + budget + ", field=" + field + ", space=" + space + ", title=" + title + ", contentof="
-				+ contentof + ", registday=" + registday + ", readcount=" + readcount + "]";
+				+ contentof + ", registday=" + registday + ", readcount=" + readcount + ", uploadfile=" + uploadfile
+				+ "]";
 	}
+	
+	
 	
 
 	

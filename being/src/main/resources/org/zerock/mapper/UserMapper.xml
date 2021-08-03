@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="checkUserWithSessionKey"
 		resultType="org.zerock.domain.UserVO">
 		select * from members where sessionKey = #{value} and
-		sessionLimit > now()
+		sessionLimit > sysdate
 	</select>
 
 

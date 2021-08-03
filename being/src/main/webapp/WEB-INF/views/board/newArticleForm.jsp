@@ -30,7 +30,7 @@
 
 <p class="box-title">스토리 등록하기</p>
 <div class="box">
-<form action="${pageContext.request.contextPath}/board/newArticleForm" method="post">
+<form action="${pageContext.request.contextPath}/board/newArticleForm" method="post" enctype="multipart/form-data">
 
 <input type="hidden" name="email" value="${login.email}">
 <input type="hidden" name="name" value="${login.name}">
@@ -43,9 +43,9 @@
         	  <li class="type=ct">
        		   	<select id="type" name="type" size="1">
        		   	<option value="">-주거형태-</option>
-                         <option value="원룸&오피스텔">원룸,오피스텔</option>
+                         <option value="원룸,오피스텔">원룸,오피스텔</option>
                          <option value="아파트">아파트</option>
-                         <option value="빌라&연합">빌라,연합</option>
+                         <option value="빌라,연합">빌라,연합</option>
                          <option value="단독주택">단독주택</option>
                          <option value="사무공간">사무공간</option>
                          <option value="상업공간">상업공간</option>
@@ -116,12 +116,14 @@
 </div>
 <div class=content>
 <p>내용
-	<input type="text" name="contentOf" ${param.contentOf} placeholder="내용을 입력하세요">
+	<input type="text" name="contentOf"  value= "${param.contentOf}" placeholder="내용을 입력하세요">
 </p>
-</div>
-</div>
-</div>
+	
 
+</div>
+</div>
+</div>  
+  <input type="file" name="uploadfile" multiple="" />
 <div>	
 	 <button type="submit" class="btn" id="btn">새 글 등록</button> 
 </div>
