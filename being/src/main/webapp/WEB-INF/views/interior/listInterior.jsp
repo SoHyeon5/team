@@ -67,7 +67,7 @@
 		</ul>	
 	</c:forEach>
 
-<table class="listbtn">
+<table class="page">
 <%-- <c:if test="${interiorPage.hasInterior()}"> --%>
 	<tr>	
 		<td colspan="4">

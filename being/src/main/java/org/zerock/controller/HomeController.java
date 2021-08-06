@@ -4,12 +4,16 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.zerock.service.BoardService;
 
 /**
  * Handles requests for the application home page.
@@ -17,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 
 public class HomeController {
+	
+	@Inject
+	private BoardService boardService;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
@@ -36,6 +43,14 @@ public class HomeController {
 		model.addAttribute("serverTime", formattedDate );
 		
 		return "index";
+	}
+	
+	@RequestMapping("/listQuery")
+	public String listQuery(HttpServletRequest request, Model model) throws Exception {
+//		boardService = sqlSession.getMapper(boardService.class);
+		model.addAttribute("listArticle", boardService.listQuery(request.getParameter("query"), request.getParameter("content")));
+
+		return "board/listArticle";
 	}
 	
 }

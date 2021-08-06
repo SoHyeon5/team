@@ -1,10 +1,12 @@
 package org.zerock.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.FileVO;
+import org.zerock.domain.SearchCriteria;
 
 public interface BoardService {
 	
@@ -25,6 +27,16 @@ public interface BoardService {
 	 public void remove(Integer num) throws Exception;
 	 
 	 public List<FileVO> selectBoardFileList(Integer num) throws Exception;
-
 	 
+	 public List<BoardVO> listSearchCriteria(SearchCriteria cri) throws Exception;
+	 
+	 public int listSearchCount(SearchCriteria cri) throws Exception;
+	 
+	 // 검색 기능
+	 public ArrayList<BoardVO> listQuery(String query, String content) throws Exception;
+	 
+	 // 조회수
+	 public void readCount(int num) throws Exception;
+	 
+	 public List<BoardVO> listReadCount(Criteria cri) throws Exception;
 }

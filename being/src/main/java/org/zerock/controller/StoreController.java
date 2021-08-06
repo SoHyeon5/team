@@ -3,6 +3,7 @@ package org.zerock.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import org.zerock.domain.StoreVO;
 import org.zerock.domain.Criteria;
 import org.zerock.domain.PageMaker;
 import org.zerock.domain.SearchCriteria;
+import org.zerock.service.BoardService;
 import org.zerock.service.StoreService;
 
 @Controller
@@ -29,6 +31,9 @@ public class StoreController {
 
   @Inject
   private StoreService storeService;
+  
+  @Inject
+	private BoardService boardService;
 
   @RequestMapping(value = "/listStore", method = RequestMethod.GET)
   public void listStorePage(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
@@ -130,4 +135,31 @@ public class StoreController {
   //
   // model.addAttribute("pageMaker", pageMaker);
   // }
+  
+//검색 기능
+
+	@RequestMapping("/listQuery")
+	public String listQuery(HttpServletRequest request, Model model) throws Exception {
+//		boardService = sqlSession.getMapper(boardService.class);
+		model.addAttribute("listArticle", boardService.listQuery(request.getParameter("query"), request.getParameter("content")));
+
+		return "store/listStore";
+	}
+	
+	@RequestMapping(value = "/listReadCount", method = RequestMethod.GET)
+	public void listPage1(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+
+		logger.info(cri.toString());
+
+		model.addAttribute("listArticle", boardService.listReadCount(cri));
+//	    model.addAttribute("listArticle", boardService.listPage(cri));
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+
+//		pageMaker.setTotalCount(boardService.listCountCriteria(cri));
+		pageMaker.setTotalCount(boardService.listSearchCount(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+	}
 }

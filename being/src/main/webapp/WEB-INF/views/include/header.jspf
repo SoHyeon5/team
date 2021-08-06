@@ -37,10 +37,10 @@
 								<li><a href="#">기획전</a></li>
 							</ul>
 						</li>
-						<li class="menu-has-children"><a href="${pageContext.request.contextPath}/interior/list.do">인테리어시공</a>
+						<li class="menu-has-children"><a href="${pageContext.request.contextPath}/interior/listInterior">인테리어시공</a>
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/interior/list.do">업체찾기</a></li>
-								<li><a href="${pageContext.request.contextPath}/interiorAsk/write.do">간편상담신청</a></li>
+								<li><a href="${pageContext.request.contextPath}/interior/listInterior">업체찾기</a></li>
+								<li><a href="${pageContext.request.contextPath}/interiorAsk/newInteriorAsk">간편상담신청</a></li>
 							</ul>
 						</li>
 						<u:isLogin>

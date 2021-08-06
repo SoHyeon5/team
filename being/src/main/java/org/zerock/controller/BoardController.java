@@ -85,20 +85,21 @@ public class BoardController {
 		logger.info(cri.toString());
 
 		model.addAttribute("listArticle", boardService.listCriteria(cri));
-//	    model.addAttribute("listArticle", boardService.listPage(page));
+//	    model.addAttribute("listArticle", boardService.listPage(cri));
 
 		PageMaker pageMaker = new PageMaker();
 		pageMaker.setCri(cri);
 
-		pageMaker.setTotalCount(boardService.listCountCriteria(cri));
-//	    pageMaker.setTotalCount(boardService.listSearchCount(cri));
+//		pageMaker.setTotalCount(boardService.listCountCriteria(cri));
+		pageMaker.setTotalCount(boardService.listSearchCount(cri));
 
 		model.addAttribute("pageMaker", pageMaker);
 	}
 
 	@RequestMapping(value = "/readArticle", method = RequestMethod.GET)
 	public void read(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
-
+		
+		boardService.readCount(num); // 조회수 증가 service 실행
 		List<?> listview = boardService.selectBoardFileList(num);
 
 		// logger.info(((FileVO)listview.toArray()[0]).getFilename());
@@ -194,4 +195,30 @@ public class BoardController {
 		}
 	}
 
+	// 검색 기능
+
+	@RequestMapping("/listQuery")
+	public String listQuery(HttpServletRequest request, Model model) throws Exception {
+//		boardService = sqlSession.getMapper(boardService.class);
+		model.addAttribute("listArticle", boardService.listQuery(request.getParameter("query"), request.getParameter("content")));
+
+		return "board/listArticle";
+	}
+	
+	@RequestMapping(value = "/listReadCount", method = RequestMethod.GET)
+	public void listPage1(@ModelAttribute("cri") SearchCriteria cri, Model model) throws Exception {
+
+		logger.info(cri.toString());
+
+		model.addAttribute("listArticle", boardService.listReadCount(cri));
+//	    model.addAttribute("listArticle", boardService.listPage(cri));
+
+		PageMaker pageMaker = new PageMaker();
+		pageMaker.setCri(cri);
+
+//		pageMaker.setTotalCount(boardService.listCountCriteria(cri));
+		pageMaker.setTotalCount(boardService.listSearchCount(cri));
+
+		model.addAttribute("pageMaker", pageMaker);
+	}
 }
