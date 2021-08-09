@@ -55,7 +55,17 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	@Transactional
 	public ArrayList<BoardVO> listQuery(String query, String content) throws Exception {
-		return boardMapper.listQuery(query, content);
+		ArrayList<BoardVO> board_list = boardMapper.listQuery(query, content);
+
+		for (BoardVO boardVO : board_list) {
+			FileVO fileVO = boardMapper.selectBoardFileList1(boardVO.getNum());
+			if (fileVO != null) {
+				boardVO.setFileName(fileVO.getFilename());
+				boardVO.setFileRealName(fileVO.getRealname());
+			}
+		}
+
+		return board_list;
 	}
 
 	@Override
@@ -78,7 +88,6 @@ public class BoardServiceImpl implements BoardService {
 				boardVO.setFileRealName(fileVO.getRealname());
 			}
 		}
-		logger.info("board_list" + board_list.toArray()[5].toString());
 
 		return board_list;
 	}
