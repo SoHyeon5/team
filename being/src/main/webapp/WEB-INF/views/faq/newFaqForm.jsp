@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>업체 관리</title>
+<title>FAQ 등록하기</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/linearicons.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/interior.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/faq.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
 
@@ -33,26 +33,39 @@
 <form action="${pageContext.request.contextPath}/faq/newFaqForm" method="post">
 
 
-<div class="all-content">
+
+<div class="faq-cat">
+<p>
+	<li>카테고리</li>
+               <li class="category-faq">
+                   <select name = "category">
+                        <option value="">-카테고리-</option>
+                        <option value="주문/결제">주문/결제</option>
+                        <option value="취소/환불">취소/환불</option>
+                        <option value="회원정보변경">회원정보변경</option>
+                        <option value="서비스/기타">서비스/기타</option>
+                    </select>
+                </li>
+    </p>
+</div>
+<div class="faq-con">
 <div class =title>
 	<p>질문
-		<input type="text" name="question" value="${param.question}"placeholder="업체명">
+		<input type="text" name="question" value="${param.question}"placeholder="질문을 입력하세요">
 		<c:if test="${errors.question}">질문을 입력하세요.</c:if>
 	</p>
 </div>
-<div class=category>
-	<p>카테고리
-		<input type="text" name="category" rows="5" cols="30" ${param.category} placeholder="카테고리을 입력하세요">
-	</p>
-</div>
+
 <div class=answer>
-	<p>질문
-		<input type="text" name="answer" rows="5" cols="30" ${param.answer} placeholder="질문를 등록하세요">
+	<p>답변
+		<input type="text" name="answer" rows="5" cols="30" ${param.answer} placeholder="답변을 등록하세요">
 	</p>
 </div>
-</div>
+
+
 <div>	
-	 <button type="submit" class="btn" id="btn">새 업체 등록</button> 
+	 <button type="submit" class="btn" id="btn">FAQ 등록</button> 
+</div>
 </div>
 </form>
 </div>

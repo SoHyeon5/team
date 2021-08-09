@@ -4,10 +4,11 @@ import java.util.List;
 
 import org.zerock.domain.InteriorVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.InteriorFileVO;
 
 public interface InteriorService {
 
-	public void create(InteriorVO interior) throws Exception;
+	public void create(InteriorVO interior, List<InteriorFileVO> filelist) throws Exception;
 
 	public List<InteriorVO> selectInteriorList() throws Exception;
 
@@ -22,5 +23,8 @@ public interface InteriorService {
 	public void modify(InteriorVO interior) throws Exception;
 
 	public void remove(Integer num) throws Exception;
-
+	
+	public List<InteriorFileVO> selectInteriorFileList(Integer num) throws Exception;
+	
+	//public InteriorFileVO selectInteriorFileList1(Integer num) throws Exception;
 }

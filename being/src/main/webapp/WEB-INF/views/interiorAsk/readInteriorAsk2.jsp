@@ -13,7 +13,7 @@
 
 <header>
 <div class="login-logo">
-         <a href="${pageContext.request.contextPath}/main/index.do">
+         <a href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/resources/img/logo4.png" alt="" title="" width="75px" height="75px"/>
          Being House
          </a>
@@ -22,11 +22,11 @@
    
 </header>
 <body>
-
+<!-- 업체 답변 받은거 리드 ->후기  -->
 <p class="box-title">인테리어 신청서</p>
 
-<div class="ask-box">
-<form action="${pageContext.request.contextPath}/interiorAsk/readInteriorAsk" method="post">
+<div class="ask-box-modi">
+<form action="${pageContext.request.contextPath}/interiorAsk/readInteriorAsk2" method="post">
 <input type="hidden" name="email" value="${login.email}">
 <input type="hidden" name="name" value="${login.name}">
 <div class="all-ask">
@@ -69,6 +69,7 @@
 <p>연락처 :
 	<input type="text" name="tel" value="${interiorAskVO.tel}">
 </p>
+
 <div class="ask-message">
 <p>업체답변 :
 	<input type="text" name="answer" value="${interiorAskVO.answer}">
@@ -79,14 +80,18 @@
 </div>
 
 
-<div>
-	<c:if test="${UserVO.lvl==1 || UserVO.lvl==3}">
+<div class ="listbtn">
+	<c:if test="${login.lvl eq 1 || login.lvl eq 3}">
 		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1?num=${interiorAskVO.num}">업체 답변 수정</a>
+	</c:if>
+	<c:if test="${login.lvl eq 1 || login.email eq boardVO.email}">
+		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk2?num=${interiorAskVO.num}">인테리어 후기</a>
 	</c:if>	
-	<c:if test="${UserVO.lvl==1}">	
+	<c:if test="${login.lvl eq 1 || login.email eq boardVO.email}">
 		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/remove?num=${interiorAskVO.num}">게시글 삭제</a>
 	</c:if>
 </div>
+
 
 
 </form>

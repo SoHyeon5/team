@@ -10,6 +10,10 @@ public class UserVO {
 	private String password;
 	private int lvl;
 	private Date registDay;
+	
+	private String email_conf;
+	private String email_code;
+	 
 
 	public String getEmail() {
 		return email;
@@ -51,8 +55,31 @@ public class UserVO {
 		this.registDay = registDay;
 	}
 
+	public String getEmail_conf() {
+		return email_conf;
+	}
+
+	public void setEmail_conf(String email_conf) {
+		this.email_conf = email_conf;
+	}
+
+	public String getEmail_code() {
+		return email_code;
+	}
+
+	public void setEmail_code(String email_code) {
+		this.email_code = email_code;
+	}
+
+	public void setRegistDay(Date registDay) {
+		this.registDay = registDay;
+	}
+
 	@Override
 	public String toString() {
-		return "UserVO [email=" + email + ", name=" + name + ", password=" + password + ", lvl=" + lvl + ", registDay=" + registDay + "]";
+		return "UserVO [email=" + email + ", name=" + name + ", password=" + password + ", lvl=" + lvl + ", registDay="
+				+ registDay + ", email_conf=" + email_conf + ", email_code=" + email_code + "]";
 	}
+
+	
 }

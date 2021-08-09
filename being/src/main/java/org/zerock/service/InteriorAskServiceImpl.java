@@ -14,60 +14,63 @@ import org.zerock.mapper.InteriorAskMapper;
 public class InteriorAskServiceImpl implements InteriorAskService {
 	@Autowired
 	private InteriorAskMapper interiorAskMapper;
-	
+
 	@Override
 	@Transactional
-	  public void create(InteriorAskVO interiorAsk) throws Exception {
+	public void create(InteriorAskVO interiorAsk) throws Exception {
 		interiorAskMapper.create(interiorAsk);
-	  }
+	}
 
 	@Override
 	@Transactional
 	public List<InteriorAskVO> selectInteriorAskList() throws Exception {
 		return interiorAskMapper.selectInteriorAskList();
 	}
-	
+
 	@Override
 	public List<InteriorAskVO> listPage(HashMap<String, Integer> param) throws Exception {
 		/*
-		int page = param.get("page");
-		
-		if (page <= 0) {
-		      page = 1;
-		    }
-		    page = (page - 1) * 10;
-		    */
+		 * int page = param.get("page");
+		 * 
+		 * if (page <= 0) { page = 1; } page = (page - 1) * 10;
+		 */
 		return interiorAskMapper.listPage(param);
 	}
-	
+
 	@Override
-	  public List<InteriorAskVO> listCriteria(Criteria cri) throws Exception {
-	    return interiorAskMapper.listCriteria(cri);
-	  }
+	public List<InteriorAskVO> listCriteria(Criteria cri) throws Exception {
+		return interiorAskMapper.listCriteria(cri);
+	}
 
 	@Override
 	public int listCountCriteria(Criteria cri) throws Exception {
 		return interiorAskMapper.countPaging(cri);
 	}
-	
-	@Override
-	   @Transactional
-	   public InteriorAskVO read(Integer num) throws Exception {
-	       return interiorAskMapper.read(num);
-	     }
-	   
-	    @Override
-	    public void modify(InteriorAskVO interiorAsk) throws Exception {
-	    	interiorAskMapper.update(interiorAsk);
-	     }
-	    @Override
-	    public void modify2(InteriorAskVO interiorAsk) throws Exception {
-	    	interiorAskMapper.update(interiorAsk);
-	     }
 
-	    @Override
-	    public void remove(Integer num) throws Exception {
-	    	interiorAskMapper.delete(num);
-	     }
+	@Override
+	@Transactional
+	public InteriorAskVO read(Integer num) throws Exception {
+		return interiorAskMapper.read(num);
+	}
+
+	@Override
+	public void modify(InteriorAskVO interiorAsk) throws Exception {
+		interiorAskMapper.update(interiorAsk);
+	}
+
+	@Override
+	public void modify2(InteriorAskVO interiorAsk) throws Exception {
+		interiorAskMapper.update(interiorAsk);
+	}
+
+	@Override
+	public void remove(Integer num) throws Exception {
+		interiorAskMapper.delete(num);
+	}
+
+	@Override
+	public List<InteriorAskVO> selectByEmail(String email) throws Exception {
+		return interiorAskMapper.selectByEmail(email);
+	}
 
 }

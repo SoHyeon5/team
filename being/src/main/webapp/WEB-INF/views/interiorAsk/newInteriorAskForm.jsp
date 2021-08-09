@@ -66,7 +66,7 @@
 
 <header>
 <div class="login-logo">
-         <a href="${pageContext.request.contextPath}/main/index.do">
+         <a href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/resources/img/logo4.png" alt="" title="" width="75px" height="75px"/>
          Being House
          </a>
@@ -181,7 +181,7 @@
 	-시공 희망 기간-<br/>
 	<label for="datestart">시작일</label>
 	&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-	<label for="dateDone">완료일</label><br/>
+	<label for="datedone">완료일</label><br/>
           <input type="text" name="datestart" id="datestart">
           <input type="text" name="datedone" id="datedone">
 </p>

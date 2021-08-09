@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>업체 관리</title>
+<title>FAQ</title>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/linearicons.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -16,7 +16,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/interior.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/faq.css">
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Squada+One&display=swap" rel="stylesheet">
 
@@ -27,37 +27,50 @@
 
    <%@ include file="../include/header.jspf" %>
 
-<p class="box-title">Faq 수정하기</p>
+<p class="box-title">FAQ 수정</p>
 
 <div class="box">
 <form role="form" method="post">
-
 <input type="hidden" name="num" value="${faqVO.num}">
 
-<div class="all-content">
+
+<div class="faq-cat">
+<p>
+	<li>카테고리</li>
+               <li class="category-faq">
+                   <select name = "category">
+                   <option value="${faqVO.category}">- ${faqVO.category} - </option>
+                        <option value="주문/결제">주문/결제</option>
+                        <option value="취소/환불">취소/환불</option>
+                        <option value="회원정보변경">회원정보변경</option>
+                        <option value="서비스/기타">서비스/기타</option>
+                    </select>
+                </li>
+    </p>
+</div>
+<div class="faq-con">
 <div class =title>
 	<p>질문
 		<input type="text" name="question" value="${faqVO.question}">
-		<c:if test="${faqVO.question}">질문을 입력하세요.</c:if>
 	</p>
 </div>
+
 <div class=answer>
 	<p>답변
 		<input type="text" name="answer" value="${faqVO.answer}">
 	</p>
 </div>
-<div class=category>
-	<p>카테고리
-		<input type="text" name="category" value="${faqVO.category}">
-	</p>
+
+
+<div>	
+	 <button type="submit" class="btn" id="btn">FAQ 수정</button> 
 </div>
 
 </div>
-<div>	
-	 <button type="submit" class="btn" id="btn">업체 수정</button> 
-</div>
 </form>
 </div>
+
+
 
 <script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"

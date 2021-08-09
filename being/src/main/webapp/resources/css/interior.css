@@ -149,7 +149,7 @@
    padding-top: 40px;
    padding-bottom:40px;
    width: 900px;
-   height: 1300px;
+   height: 1500px;
    text-align: center;
    border-radius: 7px;
    border: 2px solid #9dcb85;
@@ -179,6 +179,35 @@
 	
 }
 
+.listbtn {
+	margin-top:50px;
+	margin-bottom:30px;
+}
+
+.listbtn a {
+	padding:10px;
+	text-decoration: none;
+}
+.listbtn .btn{	
+   width:200px;
+   height: 50px;
+   font:"³ª´® °íµñ";
+   font-size: 20px;
+   color:#8BC26D;
+   font-weight:bold;
+   margin-top: 30px;
+   background:#ffff;
+   border-radius: 5px;
+ border: 1px solid transparent;
+  border-color:#8BC26D;
+  outline:0;
+}
+.listbtn .btn:hover{
+   background: #7fb362;
+   
+}
+
+
 
 .interior-category {
 	margin: 30px 50px 50px 35px;
@@ -189,7 +218,7 @@
 	display: inline-block;
 	color: #65a343;
 }
-select {
+.interior-category select {
      width:300px;
      padding:10px;
      margin-right:10px;
@@ -235,7 +264,7 @@ select {
 
 .all-ask .ask-date p {
 	margin-top:50px;
-	
+	margin-bottom:200px;
 	color: #65a343;
 }
 .all-ask .ask-date p label{
@@ -281,6 +310,10 @@ select {
 .list-box a{
 	color: #6a6a6a;
 }
+.list-box a:hover{
+   background: #7fb362;
+   
+}
 
 .listbox{
 	border : 2px solid #65a343;
@@ -315,29 +348,29 @@ select {
 
 
 .askbtn{
-	text-align:center;
-   margin-right: 200px;
-   padding-top:50px;
-   padding-bottom:50px;
+	 
+   text-align:center;
+   margin-left:800px;
+   padding-top:10px;
+   padding-bottom:10px;
 }
 
-.askbtn .btn{
-	
-   width:300px;
-   height: 70px;
+.askbtn .btn{	
+   width:200px;
+   height: 50px;
    font:"³ª´® °íµñ";
-   font-size: 30px;
-   color:#ffffff;
+   font-size: 20px;
+   color:#8BC26D;
    font-weight:bold;
-    border:5;
-   border-radius: 5px; 
+   
+   background:#ffff;
+   border-radius: 5px;
+  border:5;
   border-color:#8BC26D;
-  background:#8BC26D;
   outline:0;
 }
 .askbtn .btn:hover{
-   background: #7fb362;
-   
+   background: #7fb362;   
 }
 
 
@@ -368,3 +401,4 @@ select {
    font-weight: 700;
    color: #6a6a6a;
 }
+

@@ -114,7 +114,7 @@
 			</p>
 			<img class="serchicon"
 				src="${pageContext.request.contextPath}/resources/img/count.png"
-				width="23px" height="23px"  style="margin-left: 5px;">
+				width="23px" height="23px" style="margin-left: 5px;">
 		</ul>
 		<ul class="mob-menu-text">
 			<p>평수별집구경</p>

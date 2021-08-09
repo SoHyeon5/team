@@ -223,87 +223,88 @@
 }
 
 /* listInterior */
+
 .interior-list {
-	width: 1300px;
-	position: relative;
-	margin: auto;
-	margin-top: 50px;
-	text-align: center;
+   width:1300px;
+   position:relative;
+   margin:auto;
+   margin-top: 50px;
+   text-align:center;
 }
 
 .interior-list ul {
-	width: 400px;
-	display: inline-flex;
+   width:400px;
+   display: inline-flex;
+   
 }
 
 .interior-list ul li {
-	margin-bottom: 60px;
+   margin-bottom: 60px;
 }
 
 .interior-list p {
-	margin-bottom: 5px;
+   margin-bottom: 5px;
 }
 
 .interior-list ul li .introduce-font {
-	font-size: 13px;
-	font-weight: bold;
-	color: #b0b0b0;;
+   font-size: 13px;
+   font-weight: bold;
+   color: #b0b0b0;;
 }
 
-.interior-list li a {
-	padding-top: 5px;
-	font-size: 25px;
-	font-weight: bold;
-	color: #81af69;
+.interior-list li a{
+	padding-top:5px;
+   font-size:25px;
+   font-weight:bold;
+   color:#81af69;
+}
+.interior-list .intname{
+	padding-top:5px;
+   font-size:25px;
+   font-weight:bold;
+   color:#81af69;
 }
 
-.interior-list .intname {
-	padding-top: 5px;
-	font-size: 25px;
-	font-weight: bold;
-	color: #81af69;
+.interior-list li a span{
+   font-size: 25px;
+   font-weight:bold;
+   color:#81af69;
 }
-
-.interior-list li a span {
-	font-size: 25px;
-	font-weight: bold;
-	color: #81af69;
-}
-
-.interior-list span p {
-	padding-top: 3px;
-	color: #000000;
-	font-size: 15px;
-}
+.interior-list span p{
+   padding-top: 3px;
+   color:#000000;
+   font-size: 15px;
+} 
 
 .interior-list img {
 	border-radius: 5px;
 }
 
-.writebtn {
-	margin: auto;
-	text-align: center;
-	margin-left: 1000px;
-	padding-top: 10px;
-	padding-bottom: 10px;
+
+.writebtn{
+	 margin:auto;
+   text-align:center;
+   margin-left:1000px;
+   padding-top:10px;
+   padding-bottom:10px;
 }
 
-.writebtn .btn {
-	width: 150px;
-	height: 45px;
-	font: "나눔 고딕";
-	font-size: 20px;
-	color: #8BC26D;
-	font-weight: bold;
-	background: #ffff;
-	border-radius: 5px;
-	border: 5;
-	border-color: #8BC26D;
-	outline: 0;
+.writebtn .btn{	
+   width:150px;
+   height: 45px;
+   font:"나눔 고딕";
+   font-size: 20px;
+   color:#8BC26D;
+   font-weight:bold;
+   
+   background:#ffff;
+   border-radius: 5px;
+  border:5;
+  border-color:#8BC26D;
+  outline:0;
 }
-
-.writebtn .btn:hover {
-	background: #7fb362;
+.writebtn .btn:hover{
+   background: #7fb362;   
 }
 
 /* listStore */

@@ -1,12 +1,51 @@
 package org.zerock.domain;
 
+import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
+
 public class InteriorVO {
 	
 	private Integer num;
 	private String cname;
 	private String introduce;
-	private String imagea;
-	private String imageb;
+	
+	
+//대표 사진
+	private String fileName;
+	private String fileRealName;
+	
+	
+	private List<MultipartFile> uploadfile;
+	
+//		public BoardVO() {
+//			super();
+//			this.writerVO = new WriterVO();
+//		}
+	
+	 public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getFileRealName() {
+		return fileRealName;
+	}
+
+	public void setFileRealName(String fileRealName) {
+		this.fileRealName = fileRealName;
+	}
+
+	public List<MultipartFile> getUploadfile() {
+	        return uploadfile;
+	    }
+
+	 public void setUploadfile(List<MultipartFile> uploadfile) {
+	        this.uploadfile = uploadfile;
+	    }
 	
 	public Integer getNum() {
 		return num;
@@ -28,24 +67,14 @@ public class InteriorVO {
 	public void setIntroduce(String introduce) {
 		this.introduce = introduce;
 	}
-	
-	public String getImagea() {
-		return imagea;
-	}
-	public void setImagea(String imagea) {
-		this.imagea = imagea;
-	}
-	
-	public String getImageb() {
-		return imageb;
-	}
-	public void setImageb(String imageb) {
-		this.imageb = imageb;
-	}
+
 	@Override
 	public String toString() {
-		return "InteriorVO [num=" + num + ", cname=" + cname + ", introduce=" + introduce + ", imagea=" + imagea
-				+ ", imageb=" + imageb + "]";
+		return "InteriorVO [num=" + num + ", cname=" + cname + ", introduce=" + introduce + ", fileName=" + fileName
+				+ ", fileRealName=" + fileRealName + ", uploadfile=" + uploadfile + "]";
 	}
+	
+	
+	
 
 }

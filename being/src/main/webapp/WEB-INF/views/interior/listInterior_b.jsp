@@ -52,12 +52,20 @@
 		<td colspan="4">업체가 없습니다.</td>
 	</tr>
 </c:if>
+
+	<c:if test="${login.lvl eq 1}">
+		<p class="writebtn">
+			<a class="btn" href="${pageContext.request.contextPath}/interior/newInteriorForm">업체 등록하기</a>
+		</p>
+	</c:if>
+	
+	
 	<c:forEach var="interiorVO" items="${listInterior}">
 		<ul>
 			<li>
 <!-- 		업체명 -->
-				<a href='${pageContext.request.contextPath}/interior/readInterior?num=${interiorVO.num}&page=${param.page}'>
-				<img src ="${pageContext.request.contextPath}/board/fileDownload?filename=${interiorVO.fileName}&downname=${interiorVO.fileRealName}" width="200px" height="200px" style="border-radius: 7px;"> 
+				<a href='${pageContext.request.contextPath}/interior/readInterior?num=${interiorVO.num}'>
+				<img src="${pageContext.request.contextPath}/resources/img/interior1.png" width="300px" height="300px" alt="" />
 				<div class="intname"><c:out value="${interiorVO.cname}"/></div>
 				</a>
 		
@@ -67,7 +75,7 @@
 		</ul>	
 	</c:forEach>
 
-<table class="listbtn">
+<table class="page">
 <%-- <c:if test="${interiorPage.hasInterior()}"> --%>
 	<tr>	
 		<td colspan="4">
@@ -91,11 +99,6 @@
 <%-- </c:if> --%>
 </table>
 
-<u:isAdmin>
-<div class="writebtn">
-<a class="btn" href="/interior/newInteriorForm">업체등록</a>
-</div>
-</u:isAdmin>
 </div>	
 
 <%@ include file="../include/footer.jspf" %>

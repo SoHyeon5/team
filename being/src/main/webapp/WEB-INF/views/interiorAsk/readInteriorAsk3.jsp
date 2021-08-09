@@ -13,7 +13,7 @@
 
 <header>
 <div class="login-logo">
-         <a href="${pageContext.request.contextPath}/main/index.do">
+         <a href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/resources/img/logo4.png" alt="" title="" width="75px" height="75px"/>
          Being House
          </a>
@@ -22,10 +22,10 @@
    
 </header>
 <body>
-
+<!-- 업체 답변 받은거 + 후기  -->
 <p class="box-title">인테리어 신청서</p>
 
-<div class="ask-box">
+<div class="ask-box-end">
 <form action="${pageContext.request.contextPath}/interiorAsk/readInteriorAsk" method="post">
 <input type="hidden" name="email" value="${login.email}">
 <input type="hidden" name="name" value="${login.name}">
@@ -85,15 +85,12 @@
 </p>
 </div>
 
-
-<div>
-	<c:if test="${UserVO.lvl==1 || UserVO.lvl==3}">
-		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk2?num=${interiorAskVO.num}">후기 수정</a>
-	</c:if>	
-	<c:if test="${UserVO.lvl==1}">	
+<div class ="listbtn">
+	<c:if test="${login.lvl eq 1 || login.email eq boardVO.email}">
 		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/remove?num=${interiorAskVO.num}">게시글 삭제</a>
 	</c:if>
 </div>
+
 
 
 </form>

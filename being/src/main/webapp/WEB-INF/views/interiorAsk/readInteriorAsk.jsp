@@ -13,7 +13,7 @@
 
 <header>
 <div class="login-logo">
-         <a href="${pageContext.request.contextPath}/main/index.do">
+         <a href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/resources/img/logo4.png" alt="" title="" width="75px" height="75px"/>
          Being House
          </a>
@@ -73,14 +73,15 @@
 </div>
 
 
-<div>
-	<c:if test="${UserVO.lvl==1 || UserVO.lvl==3}">
+<div class ="listbtn">
+	<c:if test="${login.lvl eq 1 || login.lvl eq 3}">
 		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1?num=${interiorAskVO.num}">업체 답변 등록</a>
 	</c:if>	
-	<c:if test="${UserVO.lvl==1}">	
+	<c:if test="${login.lvl eq 1 || login.email eq boardVO.email}">
 		<a class="btn" href="${pageContext.request.contextPath}/interiorAsk/remove?num=${interiorAskVO.num}">게시글 삭제</a>
 	</c:if>
 </div>
+
 
 
 </form>

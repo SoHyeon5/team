@@ -18,7 +18,8 @@
 		, EMAIL
 		, NAME
 		, TYPE
-		, ACREAGE
+		,
+		ACREAGE
 		, BUDGET
 		, FIELD
 		, SPACE
@@ -28,11 +29,11 @@
 		FROM WRITING
 		WHERE NUM = #{num}
 	</select>
-	
-	<update id = "readCount" parameterType="org.zerock.domain.BoardVO">
-	UPDATE WRITING
-	SET READCOUNT = READCOUNT+1
-	WHERE NUM= #{NUM}
+
+	<update id="readCount" parameterType="org.zerock.domain.BoardVO">
+		UPDATE WRITING
+		SET READCOUNT = READCOUNT+1
+		WHERE NUM= #{NUM}
 	</update>
 
 	<update id="update">
@@ -60,13 +61,15 @@
 		, ACREAGE
 		, BUDGET
 		, FIELD
-		, SPACE
+		,
+		SPACE
 		, TITLE
 		, CONTENTOF
 		, REGISTDAY
 		, READCOUNT
 		FROM WRITING
-		ORDER BY NUM DESC
+		ORDER BY NUM
+		DESC
 	</select>
 
 	<select id="selectBoardList2"
@@ -156,29 +159,34 @@
 		WHERE num=#{num}
 		ORDER BY FILENO DESC
 	</select>
-	
-	<select id="selectBoardFileList1" resultType="org.zerock.domain.FileVO" >
-        select fileno, filename, realname, filesize
-          from (
-              SELECT rownum,  FILENO, FILENAME, REALNAME, FILESIZE
-                       FROM board_file
-                      WHERE num= #{num}
-                      ORDER BY FILENO
-         ) a
-         where rownum = 1
-    </select>
+
+	<select id="selectBoardFileList1"
+		resultType="org.zerock.domain.FileVO">
+		select fileno, filename, realname, filesize
+		from (
+		SELECT rownum, FILENO, FILENAME, REALNAME, FILESIZE
+		FROM board_file
+		WHERE num= #{num}
+		ORDER BY FILENO
+		) a
+		where rownum = 1
+	</select>
 
 	<insert id="insertBoardFile"
 		parameterType="org.zerock.domain.FileVO">
-		INSERT INTO board_file (FILENO,NUM, FILENAME, REALNAME, FILESIZE)
-		VALUES (FILE_SEQ.nextval, WRITING_SEQ.currval, #{filename}, #{realname},
+		INSERT INTO board_file (FILENO,NUM, FILENAME, REALNAME,
+		FILESIZE)
+		VALUES (FILE_SEQ.nextval, WRITING_SEQ.currval, #{filename},
+		#{realname},
 		#{filesize})
 	</insert>
 
 	<insert id="updateBoardFile"
 		parameterType="org.zerock.domain.FileVO">
-		INSERT INTO board_file (FILENO,NUM, FILENAME, REALNAME, FILESIZE)
-		VALUES (FILE_SEQ.nextval, ${parentPK}, #{filename}, #{realname},
+		INSERT INTO board_file (FILENO,NUM, FILENAME, REALNAME,
+		FILESIZE)
+		VALUES (FILE_SEQ.nextval, ${parentPK}, #{filename},
+		#{realname},
 		#{filesize})
 	</insert>
 
@@ -203,23 +211,27 @@
 				and NAME like CONCAT('%', #{keyword}, '%')
 			</if>
 			<if test="searchType == 'tc'.toString()">
-				and ( TITLE like CONCAT('%', #{keyword}, '%') OR CONTENTOF like
+				and ( TITLE like CONCAT('%', #{keyword}, '%') OR
+				CONTENTOF like
 				CONCAT('%', #{keyword}, '%'))
 			</if>
 			<if test="searchType == 'cw'.toString()">
-				and ( CONTENTOF like CONCAT('%', #{keyword}, '%') OR NAME like
+				and ( CONTENTOF like CONCAT('%', #{keyword}, '%') OR NAME
+				like
 				CONCAT('%', #{keyword}, '%'))
 			</if>
 			<if test="searchType == 'tcw'.toString()">
 				and ( TITLE like CONCAT('%', #{keyword}, '%')
 				OR
-				CONTENTOF like CONCAT('%', #{keyword}, '%')
+				CONTENTOF
+				like CONCAT('%', #{keyword}, '%')
 				OR
-				NAME like CONCAT('%', #{keyword}, '%'))
+				NAME like CONCAT('%', #{keyword},
+				'%'))
 			</if>
 		</if>
 	</sql>
-	
+
 	<select id="listSearch" resultType="org.zerock.domain.BoardVO">
 <![CDATA[ 
  select * 
@@ -242,11 +254,12 @@
 ]]>
 		<include refid="search"></include>
 	</select>
-	
-<!-- 	테스트 -->
 
-<!-- parameterType 를 지정하여 ${var} 의 타입을 지정하여 사용할수있다. -->
-	<select id="listQuery" parameterType="String" resultType="org.zerock.domain.BoardVO">
+	<!-- 테스트 -->
+
+	<!-- parameterType 를 지정하여 ${var} 의 타입을 지정하여 사용할수있다. -->
+	<select id="listQuery" parameterType="String"
+		resultType="org.zerock.domain.BoardVO">
 		SELECT NUM
 		, EMAIL
 		, NAME
@@ -254,17 +267,20 @@
 		, ACREAGE
 		, BUDGET
 		, FIELD
-		, SPACE
+		,
+		SPACE
 		, TITLE
 		, CONTENTOF
 		, REGISTDAY
 		, READCOUNT
 		FROM WRITING
-		WHERE ${param1} LIKE CONCAT('%', CONCAT(#{param2}, '%'))
+		WHERE
+		${param1} LIKE CONCAT('%', CONCAT(#{param2}, '%'))
 	</select>
-	
-<!-- 	조회순 정렬 리스트 -->
-	<select id="listReadCount" resultType="org.zerock.domain.BoardVO">
+
+	<!-- 조회순 정렬 리스트 -->
+	<select id="listReadCount"
+		resultType="org.zerock.domain.BoardVO">
  <![CDATA[
  select RNUM, NUM
 		, EMAIL
@@ -287,6 +303,11 @@
  ]]>
 		<!-- WHERE RNUM BETWEEN 1 AND 10 -->
 		<!-- WHERE RNUM BETWEEN #{pageStart}+1 AND 10 -->
+	</select>
+
+	<select id="selectByEmail"
+		resultType="org.zerock.domain.BoardVO">
+		select * WRITING WHERE EMAIL = #{email}
 	</select>
 
 </mapper>

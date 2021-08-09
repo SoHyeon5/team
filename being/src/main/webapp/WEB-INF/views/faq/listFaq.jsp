@@ -19,7 +19,7 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>Being</title>
+	<title>FAQ</title>
 
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 	<!--
@@ -36,7 +36,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/faq.css">
 </head>
 
 <body>
@@ -44,28 +44,38 @@
 	
 
 
-<body>
-
+<body>		
 <div class="faq-list">
-<%-- <c:if test="${interiorPage.hasNoInterior()}"> --%>
-<%-- </c:if> --%>
-	<c:forEach var="faqVO" items="${listFaq}">
-		<ul>
-			<li>
-<!-- 		질문 -->
-				<a href='${pageContext.request.contextPath}/faq/readFaq?num=${faqVO.num}&page=${param.page}'>
-				<div class="question"><c:out value="${faqVO.question}"/></div>
-				</a>
+
+<c:if test="${login.lvl eq 1}">
+			<div class="faqbtn">
+				<a class="btn" href="${pageContext.request.contextPath}/faq/newFaqForm">FAQ 등록</a>
+			</div>
+</c:if>
+	
+	<table class = "faqbox">
+	<tr>
+	<th>카테고리</th>
+	<th>질문</th>
+	<th>답변</th>
+	</tr>
+
+<c:forEach var="faqVO" items="${listFaq}">
+
+	<tr>
+		<td>${faqVO.category}</td>
+		<td><!-- 질문 -->
+		<a href='${pageContext.request.contextPath}/faq/readFaq?num=${faqVO.num}'>
+		<c:out value="${faqVO.question}"/>
+		</a></td>
+		<td>${faqVO.answer}</td>
 		
-		<!-- 	답변 -->
-				<div><span> ${faqVO.answer}</span></div>
-				<div><span> ${faqVO.category}</span></div>
-			</li>
-		</ul>	
+	</tr>
 	</c:forEach>
+</table>
+	
 
 <table class="listbtn">
-<%-- <c:if test="${interiorPage.hasInterior()}"> --%>
 	<tr>	
 		<td colspan="4">
 			<c:if test="${pageMaker.prev}">
@@ -85,14 +95,8 @@
 			</c:if>
 		</td>
 	</tr>
-<%-- </c:if> --%>
 </table>
 
-<u:isAdmin>
-<div class="writebtn">
-<a class="btn" href="/faq/newFaqForm">faq등록</a>
-</div>
-</u:isAdmin>
 </div>	
 
 <%@ include file="../include/footer.jspf" %>

@@ -1,5 +1,8 @@
 package org.zerock.controller;
 
+import java.util.List;
+
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
@@ -13,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.InteriorVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.FileUtil;
+
+import org.zerock.domain.InteriorFileVO;
 import org.zerock.domain.PageMaker;
 import org.zerock.domain.SearchCriteria;
 import org.zerock.service.InteriorService;
@@ -22,7 +28,10 @@ import org.zerock.service.InteriorService;
 public class InteriorController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(BoardController.class);
-
+	
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+	
 	@Inject
 	private InteriorService interiorService;
 	
@@ -37,8 +46,19 @@ public class InteriorController {
 
 	    logger.info("newArticleForm post ...........");
 	    logger.info(interior.toString());
+	    
+	    FileUtil fs = new FileUtil(uploadPath);
 
-	    interiorService.create(interior);
+		List<InteriorFileVO> filelist = null;
+		logger.info(uploadPath);
+
+		List<?> files = interior.getUploadfile();
+		
+		if (files != null && !files.isEmpty()) {
+			filelist = fs.saveAllInteriorFiles(interior.getUploadfile());
+		}
+	    
+	    interiorService.create(interior, filelist);
 
 	    rttr.addFlashAttribute("msg", "SUCCESS");
 	    
@@ -64,8 +84,12 @@ public class InteriorController {
 	 
 	  @RequestMapping(value = "/readInterior", method = RequestMethod.GET)
 	     public void read(@RequestParam("num") int num, @ModelAttribute("cri") Criteria cri, Model model) throws Exception {
+		  
+		  List<?> listview = interiorService.selectInteriorFileList(num);
 
+		  
 	       model.addAttribute(interiorService.read(num));
+	       model.addAttribute("listview", listview);
 	     }
 	   
 	     @RequestMapping(value = "/remove", method = {RequestMethod.POST ,RequestMethod.GET})

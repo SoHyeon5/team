@@ -39,4 +39,6 @@ public interface BoardService {
 	 public void readCount(int num) throws Exception;
 	 
 	 public List<BoardVO> listReadCount(Criteria cri) throws Exception;
+	 
+	 public List<BoardVO> selectByEmail(String email) throws Exception;
 }

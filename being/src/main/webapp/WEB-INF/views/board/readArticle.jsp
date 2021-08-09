@@ -47,9 +47,12 @@
 	
 	   <!-- readArticle-->
 	   <!--  썸네일 -->
-	    <div class="everything">
-<li><a href="#"><img src="${pageContext.request.contextPath}/resources/img/story1.png" width="1500px" height="400px" style="border-radius: 7px;"></a></li>
-	</div>
+<!-- <div class="everything"> -->
+<%-- 	    <c:forEach var="listview" items="${listview}" varStatus="status"> --%>
+<!-- <a href="#"> -->
+<%-- <img src ="${pageContext.request.contextPath}/board/fileDownload?filename=${boardVO.fileName}&downname=${boardVO.fileRealName}">  --%>
+<%-- 	</c:forEach> --%>
+<!-- </div> -->
 	   </div>
 			
 			<form role="form" method="post">	
@@ -71,7 +74,8 @@
 			<li><img class="img1"
 				src="${pageContext.request.contextPath}/resources/img/house.png"
 				width="30px" height="30px" style="border-radius: 7px;"></li>
-				<div class="category-name">주거형태</div>
+				<!-- <div class="category-name">주거형태</div> -->
+				<li>주거형태</li>
 			<div class="value">
 				<u:pre value='${boardVO.type}' />
 			</div>
@@ -80,8 +84,8 @@
 				<li><img class="img2"
 					src="${pageContext.request.contextPath}/resources/img/area.png"
 					width="30px" height="30px" style="border-radius: 7px;"></li>
-					<div class="category-name">평수</div>
-
+					<!-- <div class="category-name">평수</div> -->
+					<li>평수</li>
 				<div class="value">
 					<u:pre value='${boardVO.acreage}' />
 				</div>
@@ -90,8 +94,8 @@
 				<li><img class="img3"
 					src="${pageContext.request.contextPath}/resources/img/budget.png"
 					width="30px" height="30px" style="border-radius: 7px;"></li>
-					<div class="category-name">예산</div>
-					
+					<!-- <div class="category-name">예산</div> -->
+					<li>예산</li>
 				<div class="value">
 					<u:pre value='${boardVO.budget}' />
 				</div>
@@ -100,8 +104,8 @@
 				<li><img class="img4"
 					src="${pageContext.request.contextPath}/resources/img/noticeboard.png"
 					width="30px" height="30px" style="border-radius: 7px;"></li>
-					<div class="category-name">분야</div>
-					
+					<!-- <div class="category-name">분야</div> -->
+					<li>분야</li>
 				<div class="value">
 					<u:pre value='${boardVO.field}' />
 				</div>
@@ -110,28 +114,23 @@
 				<li><img class="img5"
 					src="${pageContext.request.contextPath}/resources/img/room.png"
 					width="30px" height="30px" style="border-radius: 7px;"></li>
-					<div class="category-name">공간별</div>
-					
+					<!-- <div class="category-name">공간별</div> -->
+					<li>공간별</li>
 				<div class="value">
 					<u:pre value='${boardVO.space}' />
 					</div>
 				</div>
-				
-				<div >
-
-			     <c:forEach var="listview" items="${listview}" varStatus="status">
-					     <span >
-							<img src ="${pageContext.request.contextPath}/board/fileDownload?filename=${listview.filename}&downname=${listview.realname}" width="200px" height="200px" style="border-radius: 7px;"> 							 
-					     	<a href="${pageContext.request.contextPath}/board/fileDownload?filename=${listview.filename}&downname=${listview.realname}"> 							 
-						 		${listview.filename}</a> ${listview.size2String()}
-					    </span>
-				</c:forEach>
-			   </div>
-
 			</div>
 
 </div>
-
+			<div class="img-content">
+			     <c:forEach var="listview" items="${listview}" varStatus="status">
+					     <span >
+							<img src ="${pageContext.request.contextPath}/board/fileDownload?filename=${listview.filename}&downname=${listview.realname}" width="200px" height="200px" style="border-radius: 7px;"> 							 
+					     	<%-- <a href="${pageContext.request.contextPath}/board/fileDownload?filename=${listview.filename}&downname=${listview.realname}"> ${listview.filename}</a> ${listview.size2String()} --%>
+					    </span>
+				</c:forEach>
+			</div>
 		<!-- 내용 -->
 			<h1 class="content">
 				<u:pre value='${boardVO.contentOf}' />
@@ -142,11 +141,11 @@
 			<div class="list">
 				<td colspan="2"><c:set var="pageNo"
 						value="${empty param.pageNo ? '1' : param.pageNo}" />
-						<a class="btn" href="${pageContext.request.contextPath}/board/listArticle?page=${param.page}">목록</a>
-						<u:isAdmin>
+						<a class="btn" href="${pageContext.request.contextPath}/board/listArticle">목록</a>
+					<c:if test="${login.lvl eq 1}">
 						<a class="btn" href="${pageContext.request.contextPath}/board/remove?num=${boardVO.num}">게시글 삭제</a>
-						</u:isAdmin>
-						<c:if test="${login.email ==boardVO.email}">
+					</c:if>
+					<c:if test="${login.email eq boardVO.email}">
 						<a class="btn" href="${pageContext.request.contextPath}/board/modifyForm?num=${boardVO.num}">게시글 수정</a>
 						<a class="btn" href="${pageContext.request.contextPath}/board/remove?num=${boardVO.num}">게시글 삭제</a>
 					</c:if></td>
@@ -154,7 +153,7 @@
 		
 			
 			
-		</div>
+</div>
 	
 
 

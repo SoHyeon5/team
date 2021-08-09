@@ -131,8 +131,48 @@ public class FileUtil {
         	} 
     	}
     }
-
     
+    
+    //인테리어 이미지 첨부용
+    public List<InteriorFileVO> saveAllInteriorFiles(List<MultipartFile> upfiles) throws Exception {
+    	
+        List<InteriorFileVO> filelist = new ArrayList<InteriorFileVO>();
+
+        for (MultipartFile uploadfile : upfiles ) {
+            if (uploadfile.getSize() == 0) {
+                continue;
+            }
+            
+            String newName = getNewName();
+            
+            saveFile(uploadfile, filePath + "/" + newName.substring(0,4) + "/", newName);
+            
+            InteriorFileVO filedo = new InteriorFileVO();
+            filedo.setFilename(uploadfile.getOriginalFilename());
+            filedo.setRealname(newName);
+            filedo.setFilesize(uploadfile.getSize());
+            filelist.add(filedo);
+            
+            //logger.info(filedo.getParentPK().toString());
+        }
+        return filelist;
+    }    
+    
+    //인테리어 파일 삭제.
+	 public void deleteInteriorFiles(List<InteriorFileVO> files) {
+	    	
+	    	//String filePath = "";
+	    	
+	    	for(InteriorFileVO vo : files) {
+	    		File deleteFile = new File(filePath + vo.getRealname());
+	    		if(deleteFile!=null) {
+	        		
+	        		deleteFile.delete();
+	        		
+	        		System.out.println("파일을 삭제하였습니다.");
+	        	} 
+	    	}
+	    }
 }
     
 

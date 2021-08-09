@@ -14,7 +14,7 @@
 
 <header>
 <div class="login-logo">
-         <a href="${pageContext.request.contextPath}/main/index.do">
+         <a href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/resources/img/logo4.png" alt="" title="" width="75px" height="75px"/>
          Being House
          </a>
@@ -26,8 +26,8 @@
 
 <p class="box-title">인테리어 신청하기</p>
 
-<div class="ask-box">
-<form action="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1" method="post">
+<div class="ask-box-modi">
+<form action="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1?num=${interiorAskVO.num}" method="post">
 <input type="hidden" name="email" value="${login.email}">
 <input type="hidden" name="name" value="${login.name}">
 <div class="all-ask">
@@ -73,12 +73,11 @@
 </p>
 
 <div class="ask-message">
-<u:isAdmin>
 <p>업체 답변:
-	<textarea name="answer" rows="5" cols="30">${modReq.answer}</textarea>
+	<input type="text" name="answer" value="${modReq.answer}"placeholder="업체 답변">
 </p>
-</u:isAdmin>
 </div>
+
 <div>
 	<button type="submit" class="btn" id="btn"> 업체 답변 하기</button>
 </div>

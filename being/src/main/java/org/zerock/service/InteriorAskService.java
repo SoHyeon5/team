@@ -25,6 +25,8 @@ public interface InteriorAskService {
 	 public void modify2(InteriorAskVO interiorAsk) throws Exception;
 
 	 public void remove(Integer num) throws Exception;
+	 
+	 public List<InteriorAskVO> selectByEmail(String email) throws Exception;
 
 
 }

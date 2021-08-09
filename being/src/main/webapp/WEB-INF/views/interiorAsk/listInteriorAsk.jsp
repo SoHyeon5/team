@@ -4,10 +4,9 @@
 <%@ taglib prefix="u" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="zxx" class="no-js">
-
+<html>"C:/Users/dksth_jkiwmyz/OneDrive/문서/카카오톡 받은 파일/listInteriorAsk (4).jsp"
 <head>
-<!-- Mobile Specific Meta -->
+	<!-- Mobile Specific Meta -->
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<!-- Favicon-->
 	<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/img/logo4.png">
@@ -20,13 +19,14 @@
 	<!-- meta character set -->
 	<meta charset="UTF-8">
 	<!-- Site Title -->
-	<title>시공 상담</title>
-	<link rel="stylesheet" href="<%=request.getContextPath()%>/resources/css/interior.css">
+	<title>Being</title>
+
 	<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
 	<!--
 			CSS
 			============================================= -->
 
+	<!-- <style>@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');</style> -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/linearicons.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/font-awesome.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/bootstrap.css">
@@ -36,64 +36,63 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/animate.min.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/owl.carousel.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/main.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/admin.css">
-	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 </head>
-<body>
-<%@ include file="../include/header.jspf" %>
-<div class="list-box">
 
-<table class = "listbox">
+<body>
+	 <%@ include file="../include/header.jspf" %>
+	
+
+
+<body>
+
+<div class="interior-list">
+<c:if test="${interiorPage.hasNoInterior()}">
 	<tr>
-	<th>제목</th>
-	<th>업체 명</th>
-	<th>신청자</th>
-	<th>신청일자</th>
-</tr>
-<c:if test="${interiorAskPage.hasNoInteriorAsk()}">
-	<tr>
-		<td colspan="4">신청 없습니다.</td>
+		<td colspan="4">업체가 없습니다.</td>
 	</tr>
 </c:if>
-<c:forEach var="interiorAskVO" items="${listInteriorAsk}">
 
-	<tr>
-		<td><!-- 신청 제목 -->
-		<a href='${pageContext.request.contextPath}/interiorAsk/readInteriorAsk?num=${interiorAskVO.num}&page=${params.page}'>
-		<c:out value="${interiorAskVO.title}"/>
-		</a></td>
-		<td>${interiorAskVO.cname}</td>
-		<td>${interiorAskVO.name}</td>
-		<td>${interiorAskVO.registday}</td>
-	</tr>
+	<c:if test="${login.lvl eq 1}">
+		<p class="writebtn">
+			<a class="btn" href="${pageContext.request.contextPath}/interior/newInteriorForm">업체 등록하기</a>
+		</p>
+	</c:if>
+	
+	
+	<c:forEach var="interiorVO" items="${listInterior}">
+		<ul>
+			<li>
+<!-- 		업체명 -->
+				<a href='${pageContext.request.contextPath}/interior/readInterior?num=${interiorVO.num}'>
+				<img src="${pageContext.request.contextPath}/resources/img/interior1.png" width="300px" height="300px" alt="" />
+				<div class="intname"><c:out value="${interiorVO.cname}"/></div>
+				</a>
+		
+		<!-- 	업체 소개 -->
+				<div><span> ${interiorVO.introduce}</span></div>
+			</li>
+		</ul>	
 	</c:forEach>
-</table>
-
-<u:isGeneral>
-<p class="writebtn">
-<a class="btn" href="/interiorAsk/newInteriorAksForm">인테리어 신청하기</a>
-</p>
-</u:isGeneral>
-
 
 <table class="listbtn">
-
+<%-- <c:if test="${interiorPage.hasInterior()}"> --%>
 	<tr>	
 		<td colspan="4">
 			<c:if test="${pageMaker.prev}">
 								<li><a
-									href="listInteriorAsk${pageMaker.makeSearch(pageMaker.startPage - 1) }">[이전]</a></li>
+									href="listInterior${pageMaker.makeSearch(pageMaker.startPage - 1) }">[이전]</a></li>
 							</c:if>
 			<c:forEach begin="${pageMaker.startPage }"
 								end="${pageMaker.endPage }" var="idx">
 								<li
 									<c:out value="${pageMaker.cri.page == idx?'class =active':''}"/>>
-									<a href="listInteriorAsk${pageMaker.makeSearch(idx)}">${idx}</a>
+									<a href="listInterior${pageMaker.makeSearch(idx)}">${idx}</a>
 								</li>
 							</c:forEach>
 			<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 								<li><a
-									href="listInteriorAsk${pageMaker.makeSearch(pageMaker.endPage +1) }">[다음]</a>
+									href="listInterior${pageMaker.makeSearch(pageMaker.endPage +1) }">[다음]</a>
 			</c:if>
 		</td>
 	</tr>
@@ -102,8 +101,7 @@
 
 </div>	
 
-
- <%@ include file="../include/footer.jspf" %>
+<%@ include file="../include/footer.jspf" %>
 
 	<script src="${pageContext.request.contextPath}/resources/js/vendor/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
@@ -126,5 +124,8 @@
 <!-- 터치슬라이드 -->
 <script src='${pageContext.request.contextPath}/resources/js/swipe.js'></script>
 <script src='${pageContext.request.contextPath}/resources/js/jquery.bxslider.min.js'></script>
+	
+</body>
+
 </body>
 </html>

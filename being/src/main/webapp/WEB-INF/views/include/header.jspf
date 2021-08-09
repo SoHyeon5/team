@@ -29,9 +29,9 @@
 								<li><a href="#">이벤트</a></li>
 							</ul>
 						</li>
-						<li class="menu-has-children"><a href="../store/list.do">스토어</a>
+						<li class="menu-has-children"><a href="${pageContext.request.contextPath}/store/listStore">스토어</a>
 							<ul>
-								<li><a href="${pageContext.request.contextPath}/store/listStore?page=1">스토어홈</a></li>
+								<li><a href="${pageContext.request.contextPath}/store/listStore">스토어홈</a></li>
 								<li><a href="#">카테고리</a></li>
 								<li><a href="#">오늘의 딜</a></li>
 								<li><a href="#">기획전</a></li>
@@ -40,7 +40,7 @@
 						<li class="menu-has-children"><a href="${pageContext.request.contextPath}/interior/listInterior">인테리어시공</a>
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/interior/listInterior">업체찾기</a></li>
-								<li><a href="${pageContext.request.contextPath}/interiorAsk/newInteriorAsk">간편상담신청</a></li>
+								<li><a href="${pageContext.request.contextPath}/interiorAsk/listInteriorAsk">간편상담신청</a></li>
 							</ul>
 						</li>
 						<u:isLogin>
@@ -60,7 +60,7 @@
 						
 						<u:notLogin>
 						<li class="menu-active"><a href="${pageContext.request.contextPath}/user/loginForm" style="padding-left: 400px;" class="hoverr">로그인</a></li>
-						<li class="menu-active"><a href="${pageContext.request.contextPath}/join.do" class="hoverr">회원가입</a></li>
+						<li class="menu-active"><a href="${pageContext.request.contextPath}/user/joinForm" class="hoverr">회원가입</a></li>
 						</u:notLogin>
 					</ul>
 				</nav>

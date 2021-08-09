@@ -66,7 +66,7 @@
                         <option value="50평대 이상">50평대 이상</option>
                     </select>
                 </li>
-                </ul>
+             </ul>
                 <ul class="story-category2">
                 <li>예산</li>
                  <li class="budget-ct">
@@ -108,20 +108,17 @@
 </div> 
 
 <div class="all-content">
-<div class=title>
-<p>제목 
-	<input type="text" name="title" value="${param.title}"placeholder="제목">
-	<c:if test="${errors.title}"></c:if>
-</p>
+	<div class=title>
+		<p>제목 <input type="text" name="title" value="${param.title}"placeholder="제목">
+		<c:if test="${errors.title}"></c:if>
+		</p>
+	</div>
+	<div class=content>
+		<p>내용 <input type="text" name="contentOf"  value= "${param.contentOf}" placeholder="내용을 입력하세요">
+		</p>
+	</div>
 </div>
-<div class=content>
-<p>내용
-	<input type="text" name="contentOf"  value= "${param.contentOf}" placeholder="내용을 입력하세요">
-</p>
-	
 
-</div>
-</div>
 </div>  
   <input type="file" name="uploadfile" multiple="" />
 <div>	

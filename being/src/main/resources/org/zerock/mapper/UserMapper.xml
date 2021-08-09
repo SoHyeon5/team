@@ -4,7 +4,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.UserMapper">
 	<select id="login" resultType="org.zerock.domain.UserVO">
-		select email, password, name, lvl from
+		select email, password, name, lvl
+		from
 		members where email = #{email} and password = #{password}
 	</select>
 
@@ -22,8 +23,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<insert id="create">
 		INSERT INTO MEMBERS
-		(EMAIL,NAME,PASSWORD,REGISTDAY,LVL)
-		values(#{email},#{name},#{password},SYSDATE,2)
+		(EMAIL,NAME,PASSWORD,REGISTDAY,LVL,email_conf,email_code)
+		values(#{email},#{name},#{password},SYSDATE,0,'N',#{email_code})
 	</insert>
 
 	<select id="read" resultType="org.zerock.domain.UserVO">
@@ -87,9 +88,42 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    RNUM > 0
  ]]>
 	</select>
-	
+
 	<select id="kakaoLogin" resultType="org.zerock.domain.UserVO">
-		select email, password, name from members where email = #{email}
+		select email, password, name
+		from members where email = #{email}
 	</select>
+
+	<update id="confirmEmail">
+		update members set email_conf = 'y', lvl = 2
+		where email = #{email}
+	</update>
+
+	<select id="findById" resultType="org.zerock.domain.UserVO">
+		select email, name, password, registday, lvl, email_conf, email_code
+		from members
+		where email = #{email}
+	</select>
+
+
+	<!--비빈번호 찾기 -->
+	<update id="updatePassword">
+		update members set password = #{password}
+		where email = #{email}
+	</update>
+
+	<update id="changePassword">
+		update members set NAME = #{name}, PASSWORD = #{password} where EMAIL =
+		#{email}
+	</update>
+
+	<select id="checkPassword" resultType="org.zerock.domain.UserVO">
+		select * from members where email = #{email} and password = #{password}
+
+	</select>
+
+	<delete id="deleteMember">
+		delete from MEMBERS WHERE EMAIL=#{email}
+	</delete>
 
 </mapper>

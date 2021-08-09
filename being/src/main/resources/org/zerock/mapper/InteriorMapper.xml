@@ -6,8 +6,8 @@
 
 	<insert id="create">
 		INSERT INTO CORP_MNG
-		(NUM,CNAME,INTRODUCE,IMAGEA,IMAGEB)
-		values(CORP_MNG_SEQ.nextval,#{cname},#{introduce},#{imagea},#{imageb})
+		(NUM,CNAME,INTRODUCE)
+		values(CORP_MNG_SEQ.nextval,#{cname},#{introduce})
 	</insert>
 
 	<!-- id 속성은 DAO 의 메소드와 같아야 한다. 여기의 boardVO 는 mybatis-confg.xml 에 Alias 되어 
@@ -16,8 +16,7 @@
 		SELECT NUM
 		, CNAME
 		, INTRODUCE
-		, IMAGEA
-		, IMAGEB
+		
 		FROM CORP_MNG
 		WHERE NUM = #{num}
 	</select>
@@ -26,8 +25,7 @@
 		UPDATE CORP_MNG SET
 		CNAME=#{cname}
 		,INTRODUCE=#{introduce}
-		,IMAGEA=#{imagea}
-		,IMAGEB=#{imageb}
+		
 		WHERE NUM = #{num}
 	</update>
 
@@ -40,8 +38,7 @@
 		SELECT NUM
 		, CNAME
 		, INTRODUCE
-		, IMAGEA
-		, IMAGEB
+		
 		FROM CORP_MNG
 		ORDER BY NUM DESC
 	</select>
@@ -51,8 +48,7 @@
  SELECT RNUM, NUM
 		, CNAME
 		, INTRODUCE
-		, IMAGEA
-		, IMAGEB
+		
 		FROM (
 		SELECT ROW_NUMBER() OVER (ORDER BY NUM) RNUM, A.*
 		FROM CORP_MNG A ORDER BY NUM
@@ -68,8 +64,7 @@
  select RNUM, NUM
 		, CNAME
 		, INTRODUCE
-		, IMAGEA
-		, IMAGEB
+		
 		FROM (
 		SELECT ROW_NUMBER() OVER (ORDER BY NUM) RNUM, A.*
 		FROM CORP_MNG A ORDER BY NUM
@@ -91,5 +86,42 @@
    num > 0 
  ]]>
 	</select>
+	
+	
+    <!-- =============================================================================== -->
+    <select id="selectInteriorFileList" resultType="org.zerock.domain.InteriorFileVO" >
+        SELECT FILENO, FILENAME, REALNAME, FILESIZE
+          FROM interior_file
+         WHERE num=#{num}
+         ORDER BY FILENO DESC 
+    </select> 
+
+    <insert id="insertInteriorFile" parameterType="org.zerock.domain.InteriorFileVO" >
+        INSERT INTO interior_file (FILENO,NUM, FILENAME, REALNAME, FILESIZE)
+        VALUES (CORPFILE_SEQ.nextval,CORP_MNG_SEQ.currval, #{filename}, #{realname}, #{filesize})
+    </insert>
+    
+     <insert id="updateBoardFile" parameterType="org.zerock.domain.InteriorFileVO" >
+        INSERT INTO interior_file (FILENO,NUM, FILENAME, REALNAME, FILESIZE)
+        VALUES (CORPFILE_SEQ.nextval, ${parentPK}, #{filename}, #{realname}, #{filesize})
+    </insert>
+    
+    <delete id="deleteInteriorFile"> 
+        DELETE  
+          FROM interior_file
+         WHERE num =#{num} 
+                     
+    </delete> 
+    
+    <select id="selectInteriorFileList1" resultType="org.zerock.domain.InteriorFileVO" >
+    	 select fileno, filename, realname, filesize
+			 from (
+			     SELECT rownum,  FILENO, FILENAME, REALNAME, FILESIZE
+			              FROM interior_file
+			             WHERE num = #{num}
+			             ORDER BY FILENO
+			) a
+			where rownum = 1
+    </select>
 
 </mapper>

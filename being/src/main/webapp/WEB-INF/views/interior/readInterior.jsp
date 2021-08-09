@@ -57,11 +57,12 @@
 	<%@ include file="../include/header.jspf"%>
 	<div class="everthing">
 		<div class="interior-image">
-			<img class="imgA"
-				src="${pageContext.request.contextPath}/resources/img/interior.png"
-				width="450px" height="240px"> <img class="imgB"
-				src="${pageContext.request.contextPath}/resources/img/interior1.png"
-				width="450px" height="240px">
+			<c:forEach var="listview" items="${listview}" varStatus="status">
+					     <span >
+							<img src ="${pageContext.request.contextPath}/board/fileDownload?filename=${listview.filename}&downname=${listview.realname}" width="200px" height="200px" style="border-radius: 7px;"> 							 
+					     	
+					    </span>
+			</c:forEach>
 		</div>
 
 		<form role="form" method="post">
@@ -86,15 +87,15 @@
 						value="${empty param.pageNo ? '1' : param.pageNo}" /> <a
 					class="btn"
 					href="${pageContext.request.contextPath}/interior/listInterior?page=${param.page}">목록</a>
-					<u:isAdmin>
+					
 						<a class="btn"
 							href="${pageContext.request.contextPath}/interior/remove?num=${interiorVO.num}">게시글
 							삭제</a>
-						<c:if test="${login.email ==boardVO.email}">
+						
 						<a class="btn" href="${pageContext.request.contextPath}/interior/modifyInteriorForm?num=${interiorVO.num}">게시글 수정</a>
 						<a class="btn" href="${pageContext.request.contextPath}/interior/remove?num=${interiorVO.num}">게시글 삭제</a>
-						</c:if>
-					</u:isAdmin>
+					
+					
 					</td>
 			</div>
 		</div>

@@ -14,7 +14,7 @@
 
 <header>
 <div class="login-logo">
-         <a href="${pageContext.request.contextPath}/main/index.do">
+         <a href="${pageContext.request.contextPath}/index">
             <img src="${pageContext.request.contextPath}/resources/img/logo4.png" alt="" title="" width="75px" height="75px"/>
          Being House
          </a>
@@ -27,7 +27,7 @@
 <p class="box-title">인테리어 신청하기</p>
 
 <div class="ask-box">
-<form action="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk1" method="post">
+<form action="${pageContext.request.contextPath}/interiorAsk/modifyInteriorAsk2?num=${interiorAskVO.num}" method="post">
 <input type="hidden" name="email" value="${login.email}">
 <input type="hidden" name="name" value="${login.name}">
 <div class="all-ask">
@@ -77,7 +77,7 @@
 </p>
 </div>
 
-<u:isGeneral>
+<c:if test="${login.email == interiorAskVO.email}">
 <div class="wrap">
     <h2>후기</h2>
         <p class="title_star">별점과 총평을 남겨주세요.</p>
@@ -107,7 +107,7 @@
 <p>첨부파일 :
 	<textarea name="answer" rows="5" cols="30">${modReq.imagea}</textarea>
 </p>
-</u:isGeneral>
+</c:if>
 <input type="submit" value="후기 등록">
 </div>
 

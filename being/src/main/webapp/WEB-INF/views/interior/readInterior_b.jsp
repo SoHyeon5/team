@@ -22,7 +22,7 @@
 <!-- meta character set -->
 <meta charset="UTF-8">
 <!-- Site Title -->
-<title>FAQ</title>
+<title>인테리어</title>
 
 <link
 	href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700"
@@ -51,66 +51,51 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/main.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/css/faq.css">
+	href="${pageContext.request.contextPath}/resources/css/read.css">
 </head>
 <body>
 	<%@ include file="../include/header.jspf"%>
-	
-	
-	<p class="box-title">FAQ</p>
+	<div class="everthing">
+		<div class="interior-image">
+			<img class="imgA"
+				src="${pageContext.request.contextPath}/resources/img/interior.png"
+				width="450px" height="240px"> <img class="imgB"
+				src="${pageContext.request.contextPath}/resources/img/interior1.png"
+				width="450px" height="240px">
+		</div>
 
-<div class="box">
-	<form action="${pageContext.request.contextPath}/faq/readFaq" method="post">
-		<input type='hidden' name='num' value="${faqVO.num}">
-<div class="faq-con">
-<!-- <div class="faq-cat"> -->
+		<form role="form" method="post">
+			<input type='hidden' name='num' value="${interiorVO.num}">
+		</form>
 
-<p>카테고리 :
-	<input type="text" name="category" value="${faqVO.category}">
-</p>
-
-
-<p>질문 :
-	<input type="text" name="question" value="${faqVO.question}"> 
-</p>
-<p>답변 :
-	<input type="text" name="answer" value="${faqVO.answer}"> 
-</p>
+		<div class="everthing2">
+			<div class="interior-name">
+				<h1 class="name">
+					<u:pre value='${interiorVO.cname}' />
+				</h1>
+			</div>
+			<h3 class="introduce">
+				<u:pre value='${interiorVO.introduce}' />
+			</h3>
 
 
-<div class="list">
+
+
+			<div class="list">
 				<td colspan="2"><c:set var="pageNo"
-						value="${empty param.pageNo ? '1' : param.pageNo}" />
-						<a class="btn"href="${pageContext.request.contextPath}/faq/listFaq">목록</a>
+						value="${empty param.pageNo ? '1' : param.pageNo}" /> <a
+					class="btn"
+					href="${pageContext.request.contextPath}/interior/listInterior?page=${param.page}">목록</a>
+					
 					<c:if test="${login.lvl eq 1}">
-						<a class="btn" href="${pageContext.request.contextPath}/faq/modifyFaqForm?num=${faqVO.num}">게시글 수정</a>
-						<a class="btn" href="${pageContext.request.contextPath}/faq/remove?num=${faqVO.num}">게시글 삭제</a>
-					</c:if>
+						<a class="btn" href="${pageContext.request.contextPath}/interior/modifyInteriorForm?num=${interiorVO.num}">게시글 수정</a>
+						<a class="btn" href="${pageContext.request.contextPath}/interior/remove?num=${interiorVO.num}">게시글 삭제</a>
+						</c:if>
 					</td>
-</div>
-
-</div>
-
-</form>
-</div>
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+					
+			</div>
+		</div>
+	</div>
 
 	<%@ include file="../include/footer.jspf"%>
 
