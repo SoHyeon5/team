@@ -123,5 +123,15 @@
 			) a
 			where rownum = 1
     </select>
+    
+    <select id="listQuery" parameterType="String"
+		resultType="org.zerock.domain.InteriorFileVO">
+		SELECT NUM
+		, CNAME
+		, INTRODUCE
+		FROM CORP_MNG
+		WHERE
+		${param1} LIKE CONCAT('%', CONCAT(#{param2}, '%'))
+	</select>
 
 </mapper>

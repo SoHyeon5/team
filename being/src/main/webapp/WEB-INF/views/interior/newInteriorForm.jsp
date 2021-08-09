@@ -30,7 +30,7 @@
 <p class="box-title">업체 등록하기</p>
 
 <div class="box">
-<form action="${pageContext.request.contextPath}/interior/newInteriorForm" method="post">
+<form action="${pageContext.request.contextPath}/interior/newInteriorForm" method="post" enctype="multipart/form-data">
 
 
 <div class="all-content">
@@ -45,16 +45,7 @@
 		<input type="text" name="introduce" rows="5" cols="30" ${param.introduce} placeholder="업체 소개을 입력하세요">
 	</p>
 </div>
-<div class=imageA>
-	<p>이미지
-		<input type="text" name="imagea" rows="5" cols="30" ${param.imagea} placeholder="이미지를 등록하세요">
-	</p>
-</div>
-<div class=imageB>
-	<p>이미지
-		<input type="text" name="imageb" rows="5" cols="30" ${param.imageb} placeholder="이미지를 등록하세요">
-	</p>
-</div>
+	 <input type="file" name="uploadfile" multiple="" />
 </div>
 <div>	
 	 <button type="submit" class="btn" id="btn">새 업체 등록</button> 

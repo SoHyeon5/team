@@ -40,7 +40,7 @@
 						<li class="menu-has-children"><a href="${pageContext.request.contextPath}/interior/listInterior">인테리어시공</a>
 							<ul>
 								<li><a href="${pageContext.request.contextPath}/interior/listInterior">업체찾기</a></li>
-								<li><a href="${pageContext.request.contextPath}/interiorAsk/listInteriorAsk">간편상담신청</a></li>
+								<li><a href="${pageContext.request.contextPath}/interiorAsk/newInteriorAskForm">간편상담신청</a></li>
 							</ul>
 						</li>
 						<u:isLogin>

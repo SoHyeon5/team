@@ -86,7 +86,7 @@
 				<td colspan="2"><c:set var="pageNo"
 						value="${empty param.pageNo ? '1' : param.pageNo}" /> <a
 					class="btn"
-					href="${pageContext.request.contextPath}/interior/listInterior?page=${param.page}">목록</a>
+					href="${pageContext.request.contextPath}/interior/listInterior">목록</a>
 					
 						<a class="btn"
 							href="${pageContext.request.contextPath}/interior/remove?num=${interiorVO.num}">게시글

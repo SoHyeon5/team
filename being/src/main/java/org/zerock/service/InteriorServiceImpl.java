@@ -1,5 +1,6 @@
 package org.zerock.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,24 +21,24 @@ public class InteriorServiceImpl implements InteriorService {
 
 	@Autowired
 	private InteriorMapper interiorMapper;
-	
+
 	@Resource(name = "uploadPath")
-	  private String uploadPath;
+	private String uploadPath;
 
 	@Override
 	@Transactional
 	public void create(InteriorVO interior, List<InteriorFileVO> filelist) throws Exception {
-		
+
 		if (interior.getNum() == null || "".equals(interior.getNum())) {
 			interiorMapper.create(interior);
-        } 
-		
-		 if (filelist != null) {
-	            for (InteriorFileVO f : filelist) {
-	                f.setParentPK(interior.getNum());
-	                interiorMapper.insertInteriorFile(f);
-	            }
-	        }
+		}
+
+		if (filelist != null) {
+			for (InteriorFileVO f : filelist) {
+				f.setParentPK(interior.getNum());
+				interiorMapper.insertInteriorFile(f);
+			}
+		}
 	}
 
 	@Override
@@ -58,15 +59,15 @@ public class InteriorServiceImpl implements InteriorService {
 	@Override
 	public List<InteriorVO> listCriteria(Criteria cri) throws Exception {
 		List<InteriorVO> interior_list = interiorMapper.listCriteria(cri);
-		
-		for (InteriorVO interiorVO : interior_list ) {
+
+		for (InteriorVO interiorVO : interior_list) {
 			InteriorFileVO interiorFileVO = interiorMapper.selectInteriorFileList1(interiorVO.getNum());
-			if(interiorFileVO != null) {
+			if (interiorFileVO != null) {
 				interiorVO.setFileName(interiorFileVO.getFilename());
 				interiorVO.setFileRealName(interiorFileVO.getRealname());
 			}
 		}
-		
+
 		return interior_list;
 	}
 
@@ -88,20 +89,26 @@ public class InteriorServiceImpl implements InteriorService {
 
 	@Override
 	public void remove(Integer num) throws Exception {
-		
+
 		FileUtil fs = new FileUtil(uploadPath);
-    	System.out.println(fs);
-    	List<InteriorFileVO> files = interiorMapper.selectInteriorFileList(num);
-    		
-    	interiorMapper.deleteInteriorFile(num);
-		
+		System.out.println(fs);
+		List<InteriorFileVO> files = interiorMapper.selectInteriorFileList(num);
+
+		interiorMapper.deleteInteriorFile(num);
+
 		interiorMapper.delete(num);
-		
+
 		fs.deleteInteriorFiles(files);
 	}
-	
+
 	@Override
-    public List<InteriorFileVO> selectInteriorFileList(Integer num) throws Exception {
-      return interiorMapper.selectInteriorFileList(num);
-    }
+	public List<InteriorFileVO> selectInteriorFileList(Integer num) throws Exception {
+		return interiorMapper.selectInteriorFileList(num);
+	}
+
+	@Override
+	@Transactional
+	public ArrayList<InteriorVO> listQuery(String query, String content) throws Exception {
+		return interiorMapper.listQuery(query, content);
+	}
 }
